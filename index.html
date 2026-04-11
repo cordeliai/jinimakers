@@ -29,7 +29,6 @@
             text-align: center;
         }
 
-        /* 상단 주황색 띠 */
         .top-bar {
             height: 12px;
             background-color: #df6928;
@@ -60,7 +59,6 @@
 
         .divider { width: 45px; height: 4px; background-color: #df6928; margin: 15px auto; }
 
-        /* 연락처 및 링크 정보 */
         .contact-info { text-align: left; font-size: 1rem; line-height: 1.7; }
 
         .info-item {
@@ -87,7 +85,6 @@
             flex-shrink: 0;
         }
 
-        /* 주소 하단 배치 */
         .address-box {
             margin-top: 15px;
             text-align: left;
@@ -95,6 +92,7 @@
             color: #666;
             line-height: 1.5;
             display: flex;
+            margin-bottom: 25px; /* 버튼과의 간격 */
         }
         .address-box .label {
             width: 25px;
@@ -102,6 +100,25 @@
             color: #df6928;
             margin-right: 10px;
             flex-shrink: 0;
+        }
+
+        /* 명함 다운로드 버튼 스타일 */
+        .download-btn {
+            display: block;
+            background-color: #df6928;
+            color: #ffffff;
+            text-decoration: none;
+            font-weight: 700;
+            padding: 15px;
+            border-radius: 12px;
+            font-size: 1rem;
+            transition: background-color 0.3s;
+            box-shadow: 0 4px 10px rgba(223, 105, 40, 0.3);
+        }
+
+        .download-btn:active {
+            background-color: #b54a1a;
+            transform: scale(0.98);
         }
 
         .links { margin-top: 5px; }
@@ -159,6 +176,10 @@
                 마린파크 303호
             </span>
         </div>
+
+        <a href="김유진-디지털명함(세로).PNG" download="김유진-디지털명함(세로).PNG" class="download-btn">
+            📥 명함 이미지 저장하기
+        </a>
     </div>
 </div>
 
