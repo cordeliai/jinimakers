@@ -13,7 +13,7 @@
             align-items: center;
             min-height: 100vh;
             margin: 0;
-            background-color: #f5f5f5;
+            background-color: #f8f9fa;
             font-family: 'Noto Sans KR', sans-serif;
             color: #222;
         }
@@ -21,104 +21,107 @@
         .business-card {
             background-color: #ffffff;
             width: 360px;
-            padding: 0 0 35px 0;
+            padding: 0 0 40px 0;
             box-sizing: border-box;
-            border-radius: 20px;
-            box-shadow: 0 20px 40px rgba(0,0,0,0.1);
+            border-radius: 24px;
+            box-shadow: 0 10px 30px rgba(0,0,0,0.05);
             overflow: hidden;
             text-align: center;
         }
 
         .top-bar {
-            height: 12px;
+            height: 10px;
             background-color: #df6928;
             width: 100%;
             margin-bottom: 30px;
         }
 
         .card-content {
-            padding: 0 30px;
+            padding: 0 35px;
         }
 
         .logo-container { margin-bottom: 25px; }
-        .logo-container img { width: 190px; height: auto; }
+        .logo-container img { width: 170px; height: auto; opacity: 0.9; }
 
         .qr-section {
             background-color: #fff;
             padding: 12px;
-            border: 2px solid #df6928;
-            border-radius: 15px;
+            border: 1.5px solid #eee;
+            border-radius: 18px;
             display: inline-block;
             margin-bottom: 25px;
         }
-        .qr-section img { width: 140px; height: 140px; display: block; }
+        .qr-section img { width: 130px; height: 130px; display: block; }
 
         .profile { margin-bottom: 20px; }
-        .name { font-size: 1.8rem; font-weight: 700; margin: 0 0 5px 0; color: #000; }
-        .company { font-size: 1rem; font-weight: 400; color: #555; margin: 0; }
+        .name { font-size: 1.7rem; font-weight: 700; margin: 0 0 4px 0; color: #111; letter-spacing: -0.5px; }
+        .company { font-size: 0.95rem; font-weight: 400; color: #777; margin: 0; }
 
-        .divider { width: 45px; height: 4px; background-color: #df6928; margin: 15px auto; }
+        .divider { width: 30px; height: 2px; background-color: #df6928; margin: 18px auto; opacity: 0.6; }
 
-        .contact-info { text-align: left; font-size: 1rem; line-height: 1.7; }
+        .contact-info { text-align: left; font-size: 0.95rem; line-height: 1.8; }
 
         .info-item {
             display: flex;
             align-items: center;
-            margin-bottom: 14px;
+            margin-bottom: 12px;
             text-decoration: none;
-            color: #333;
+            color: #444;
             transition: all 0.2s;
-            border-bottom: 1px solid #f0f0f0;
-            padding-bottom: 5px;
+            border-bottom: 1px solid #f8f8f8;
+            padding-bottom: 4px;
         }
 
-        .info-item:active {
-            background-color: #fffaf7;
-            color: #df6928;
-        }
+        .info-item:active { color: #df6928; }
 
         .info-item .label {
-            width: 25px;
+            width: 22px;
             font-weight: 700;
             color: #df6928;
-            margin-right: 10px;
+            margin-right: 12px;
             flex-shrink: 0;
+            font-size: 0.85rem;
         }
 
         .address-box {
             margin-top: 15px;
             text-align: left;
-            font-size: 0.9rem;
-            color: #666;
+            font-size: 0.85rem;
+            color: #888;
             line-height: 1.5;
             display: flex;
-            margin-bottom: 25px; /* 버튼과의 간격 */
+            margin-bottom: 30px;
         }
         .address-box .label {
-            width: 25px;
+            width: 22px;
             font-weight: 700;
             color: #df6928;
-            margin-right: 10px;
+            margin-right: 12px;
             flex-shrink: 0;
         }
 
-        /* 명함 다운로드 버튼 스타일 */
+        /* ✨ 세련된 SAVE 버튼 디자인 */
         .download-btn {
-            display: block;
-            background-color: #df6928;
-            color: #ffffff;
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            background-color: transparent;
+            color: #df6928;
             text-decoration: none;
-            font-weight: 700;
-            padding: 15px;
-            border-radius: 12px;
-            font-size: 1rem;
-            transition: background-color 0.3s;
-            box-shadow: 0 4px 10px rgba(223, 105, 40, 0.3);
+            font-weight: 500;
+            padding: 8px 35px; /* SAVE 글자에 맞춰 패딩 조정 */
+            border: 1.2px solid #df6928;
+            border-radius: 50px;
+            font-size: 0.85rem;
+            letter-spacing: 1px; /* 영문 SAVE의 세련미를 위해 자간 확대 */
+            transition: all 0.3s ease;
+            margin-top: 5px;
         }
 
-        .download-btn:active {
-            background-color: #b54a1a;
-            transform: scale(0.98);
+        .download-btn:hover, .download-btn:active {
+            background-color: #df6928;
+            color: #ffffff;
+            box-shadow: 0 5px 15px rgba(223, 105, 40, 0.2);
         }
 
         .links { margin-top: 5px; }
@@ -178,7 +181,7 @@
         </div>
 
         <a href="김유진-디지털명함(세로).PNG" download="김유진-디지털명함(세로).PNG" class="download-btn">
-            📥 명함 이미지 저장하기
+            SAVE
         </a>
     </div>
 </div>
