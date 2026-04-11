@@ -13,115 +13,132 @@
             align-items: center;
             min-height: 100vh;
             margin: 0;
-            background-color: #f8f9fa;
+            background-color: #fcfcfc;
             font-family: 'Noto Sans KR', sans-serif;
-            color: #222;
+            color: #333;
         }
 
         .business-card {
             background-color: #ffffff;
-            width: 360px;
-            padding: 0 0 40px 0;
+            width: 340px; /* 불필요한 여백을 줄여 더 콤팩트하게 */
+            padding: 0 0 30px 0;
             box-sizing: border-box;
-            border-radius: 24px;
-            box-shadow: 0 10px 30px rgba(0,0,0,0.05);
+            border-radius: 20px;
+            box-shadow: 0 4px 20px rgba(0,0,0,0.03);
             overflow: hidden;
             text-align: center;
         }
 
         .top-bar {
-            height: 10px;
+            height: 6px; /* 더 얇게 수정 */
             background-color: #df6928;
             width: 100%;
-            margin-bottom: 30px;
+            margin-bottom: 25px;
         }
 
         .card-content {
-            padding: 0 35px;
+            padding: 0 28px;
         }
 
-        .logo-container { margin-bottom: 25px; }
-        .logo-container img { width: 170px; height: auto; opacity: 0.9; }
+        .logo-container { margin-bottom: 20px; }
+        .logo-container img { width: 140px; height: auto; opacity: 0.85; }
 
         .qr-section {
             background-color: #fff;
-            padding: 12px;
-            border: 1.5px solid #eee;
-            border-radius: 18px;
+            padding: 8px;
+            border: 1px solid #f0f0f0; /* 선을 더 연하게 */
+            border-radius: 16px;
             display: inline-block;
-            margin-bottom: 25px;
+            margin-bottom: 20px;
         }
-        .qr-section img { width: 130px; height: 130px; display: block; }
+        .qr-section img { width: 110px; height: 110px; display: block; }
 
-        .profile { margin-bottom: 20px; }
-        .name { font-size: 1.7rem; font-weight: 700; margin: 0 0 4px 0; color: #111; letter-spacing: -0.5px; }
-        .company { font-size: 0.95rem; font-weight: 400; color: #777; margin: 0; }
+        .profile { margin-bottom: 12px; }
+        
+        /* ✨ 이름 자간 및 스타일 수정 */
+        .name { 
+            font-size: 1.5rem; 
+            font-weight: 700; 
+            margin: 0 0 4px 0; 
+            color: #111; 
+            letter-spacing: 0.4rem; /* 자간을 대폭 넓혀 고급스럽게 */
+            text-indent: 0.4rem; /* 자간 때문에 생기는 오른쪽 쏠림 방지 */
+        }
+        .company { font-size: 0.85rem; font-weight: 400; color: #888; margin: 0; }
 
-        .divider { width: 30px; height: 2px; background-color: #df6928; margin: 18px auto; opacity: 0.6; }
+        .divider { width: 25px; height: 1px; background-color: #df6928; margin: 15px auto; opacity: 0.4; }
 
-        .contact-info { text-align: left; font-size: 0.95rem; line-height: 1.8; }
+        .contact-info { text-align: left; font-size: 0.85rem; line-height: 1.6; }
 
         .info-item {
             display: flex;
             align-items: center;
-            margin-bottom: 12px;
+            margin-bottom: 6px;
             text-decoration: none;
-            color: #444;
-            transition: all 0.2s;
-            border-bottom: 1px solid #f8f8f8;
-            padding-bottom: 4px;
+            color: #555;
+            padding-bottom: 2px;
         }
 
-        .info-item:active { color: #df6928; }
-
         .info-item .label {
-            width: 22px;
+            width: 18px;
             font-weight: 700;
             color: #df6928;
             margin-right: 12px;
             flex-shrink: 0;
-            font-size: 0.85rem;
+            font-size: 0.75rem;
         }
 
         .address-box {
-            margin-top: 15px;
+            margin-top: 10px;
             text-align: left;
-            font-size: 0.85rem;
-            color: #888;
-            line-height: 1.5;
+            font-size: 0.75rem;
+            color: #999;
+            line-height: 1.4;
             display: flex;
-            margin-bottom: 30px;
+            margin-bottom: 25px;
         }
         .address-box .label {
-            width: 22px;
+            width: 18px;
             font-weight: 700;
             color: #df6928;
             margin-right: 12px;
             flex-shrink: 0;
         }
 
-        /* ✨ 세련된 SAVE 버튼 디자인 */
-        .download-btn {
+        /* 🛠 극강의 심플함을 추구한 버튼 그룹 */
+        .btn-group {
+            display: flex;
+            justify-content: center;
+            gap: 6px;
+        }
+
+        .action-btn {
+            flex: 1;
             display: inline-flex;
             align-items: center;
             justify-content: center;
-            background-color: transparent;
-            color: #df6928;
             text-decoration: none;
             font-weight: 500;
-            padding: 8px 35px; /* SAVE 글자에 맞춰 패딩 조정 */
-            border: 1.2px solid #df6928;
-            border-radius: 50px;
-            font-size: 0.85rem;
-            letter-spacing: 1px; /* 영문 SAVE의 세련미를 위해 자간 확대 */
-            transition: all 0.3s ease;
-            margin-top: 5px;
+            padding: 7px 0;
+            border-radius: 50px; /* 완전한 캡슐형 */
+            font-size: 0.65rem; /* 작고 정갈하게 */
+            letter-spacing: 0.5px;
+            transition: all 0.2s ease;
+            border: 1px solid #df6928; /* 모든 버튼 아웃라인 통일 */
+            color: #df6928;
+            background-color: transparent;
+            cursor: pointer;
         }
 
-        .download-btn:hover, .download-btn:active {
-            background-color: #df6928;
-            color: #ffffff;
-            box-shadow: 0 5px 15px rgba(223, 105, 40, 0.2);
+        .action-btn span {
+            font-size: 0.8rem;
+            margin-right: 4px;
+        }
+
+        /* 터치 시 살짝 피드백 */
+        .action-btn:active {
+            background-color: rgba(223, 105, 40, 0.05);
+            transform: scale(0.97);
         }
 
         .links { margin-top: 5px; }
@@ -154,12 +171,10 @@
                 <span class="label">M</span>
                 <span class="value">010.6558.1165</span>
             </a>
-
             <a href="mailto:jinimakers@kakao.com" class="info-item">
                 <span class="label">E</span>
                 <span class="value">jinimakers@kakao.com</span>
             </a>
-            
             <div class="links">
                 <a href="https://blog.naver.com/forceysh" class="info-item" target="_blank">
                     <span class="label">B</span>
@@ -180,11 +195,48 @@
             </span>
         </div>
 
-        <a href="김유진-디지털명함(세로).png" download="김유진-디지털명함(세로).png" class="download-btn">
-            SAVE
-        </a>
+        <div class="btn-group">
+            <a href="#" onclick="shareCard()" class="action-btn">
+                <span>🔗</span> SHARE
+            </a>
+            <a href="김유진-디지털명함(세로).png" download="김유진-디지털명함(세로).png" class="action-btn">
+                <span>📥</span> DOWN
+            </a>
+            <a href="#" onclick="downloadVCard()" class="action-btn">
+                <span>💾</span> SAVE
+            </a>
+        </div>
     </div>
 </div>
+
+<script>
+function shareCard() {
+    if (navigator.share) {
+        navigator.share({
+            title: '김유진 디지털 명함',
+            url: window.location.href,
+        }).catch(console.error);
+    } else {
+        const t = document.createElement("input");
+        document.body.appendChild(t);
+        t.value = window.location.href;
+        t.select();
+        document.execCommand("copy");
+        document.body.removeChild(t);
+        alert("링크가 복사되었습니다.");
+    }
+}
+
+function downloadVCard() {
+    const v = "BEGIN:VCARD\nVERSION:3.0\nFN:김유진\nORG:코드스튜디오\nTEL;TYPE=CELL:01065581165\nEMAIL:jinimakers@kakao.com\nURL:" + window.location.href + "\nEND:VCARD";
+    const b = new Blob([v], { type: "text/vcard;charset=utf-8" });
+    const u = window.URL.createObjectURL(b);
+    const a = document.createElement("a");
+    a.download = "김유진_연락처.vcf";
+    a.href = u;
+    a.click();
+}
+</script>
 
 </body>
 </html>
