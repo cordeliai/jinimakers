@@ -1,0 +1,166 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>디지털 명함 - 김유진</title>
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Noto+Sans+KR:wght@300;400;700&display=swap');
+
+        body {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            min-height: 100vh;
+            margin: 0;
+            background-color: #f5f5f5;
+            font-family: 'Noto Sans KR', sans-serif;
+            color: #222;
+        }
+
+        .business-card {
+            background-color: #ffffff;
+            width: 360px;
+            padding: 0 0 35px 0;
+            box-sizing: border-box;
+            border-radius: 20px;
+            box-shadow: 0 20px 40px rgba(0,0,0,0.1);
+            overflow: hidden;
+            text-align: center;
+        }
+
+        /* 상단 주황색 띠 */
+        .top-bar {
+            height: 12px;
+            background-color: #df6928;
+            width: 100%;
+            margin-bottom: 30px;
+        }
+
+        .card-content {
+            padding: 0 30px;
+        }
+
+        .logo-container { margin-bottom: 25px; }
+        .logo-container img { width: 190px; height: auto; }
+
+        .qr-section {
+            background-color: #fff;
+            padding: 12px;
+            border: 2px solid #df6928;
+            border-radius: 15px;
+            display: inline-block;
+            margin-bottom: 25px;
+        }
+        .qr-section img { width: 140px; height: 140px; display: block; }
+
+        .profile { margin-bottom: 20px; }
+        .name { font-size: 1.8rem; font-weight: 700; margin: 0 0 5px 0; color: #000; }
+        .company { font-size: 1rem; font-weight: 400; color: #555; margin: 0; }
+
+        .divider { width: 45px; height: 4px; background-color: #df6928; margin: 15px auto; }
+
+        /* 연락처 및 링크 정보 */
+        .contact-info { text-align: left; font-size: 1rem; line-height: 1.7; }
+
+        .info-item {
+            display: flex;
+            align-items: center;
+            margin-bottom: 14px;
+            text-decoration: none;
+            color: #333;
+            transition: all 0.2s;
+            border-bottom: 1px solid #f0f0f0;
+            padding-bottom: 5px;
+        }
+
+        .info-item:active {
+            background-color: #fffaf7;
+            color: #df6928;
+        }
+
+        .info-item .label {
+            width: 25px;
+            font-weight: 700;
+            color: #df6928;
+            margin-right: 10px;
+            flex-shrink: 0;
+        }
+
+        /* 주소 하단 배치 */
+        .address-box {
+            margin-top: 15px;
+            text-align: left;
+            font-size: 0.9rem;
+            color: #666;
+            line-height: 1.5;
+            display: flex;
+        }
+        .address-box .label {
+            width: 25px;
+            font-weight: 700;
+            color: #df6928;
+            margin-right: 10px;
+            flex-shrink: 0;
+        }
+
+        .links { margin-top: 5px; }
+        
+    </style>
+</head>
+<body>
+
+<div class="business-card">
+    <div class="top-bar"></div>
+
+    <div class="card-content">
+        <div class="logo-container">
+            <img src="COS_로고_영문.png" alt="COde_Studio 로고">
+        </div>
+
+        <div class="qr-section">
+            <img src="25kS9.png" alt="코드스튜디오 해운대센터 QR코드">
+        </div>
+
+        <div class="profile">
+            <p class="name">김유진</p>
+            <p class="company">지니메이커스 | 코드스튜디오 해운대센터</p>
+        </div>
+
+        <div class="divider"></div>
+
+        <div class="contact-info">
+            <a href="tel:01065581165" class="info-item">
+                <span class="label">M</span>
+                <span class="value">010.6558.1165</span>
+            </a>
+
+            <a href="mailto:jinimakers@kakao.com" class="info-item">
+                <span class="label">E</span>
+                <span class="value">jinimakers@kakao.com</span>
+            </a>
+            
+            <div class="links">
+                <a href="https://blog.naver.com/forceysh" class="info-item" target="_blank">
+                    <span class="label">B</span>
+                    <span class="value">blog.naver.com/forceysh</span>
+                </a>
+                <a href="https://www.instagram.com/codestudio_hd/" class="info-item" target="_blank">
+                    <span class="label">I</span>
+                    <span class="value">instagram.com/codestudio_hd/</span>
+                </a>
+            </div>
+        </div>
+
+        <div class="address-box">
+            <span class="label">A</span>
+            <span class="value">
+                부산광역시 해운대구 마린시티 2로 2<br>
+                마린파크 303호
+            </span>
+        </div>
+    </div>
+</div>
+
+</body>
+</html>
