@@ -20,7 +20,7 @@
 
         .business-card {
             background-color: #ffffff;
-            width: 340px; /* 불필요한 여백을 줄여 더 콤팩트하게 */
+            width: 340px;
             padding: 0 0 30px 0;
             box-sizing: border-box;
             border-radius: 20px;
@@ -30,7 +30,7 @@
         }
 
         .top-bar {
-            height: 6px; /* 더 얇게 수정 */
+            height: 6px;
             background-color: #df6928;
             width: 100%;
             margin-bottom: 25px;
@@ -46,7 +46,7 @@
         .qr-section {
             background-color: #fff;
             padding: 8px;
-            border: 1px solid #f0f0f0; /* 선을 더 연하게 */
+            border: 1px solid #f0f0f0;
             border-radius: 16px;
             display: inline-block;
             margin-bottom: 20px;
@@ -54,15 +54,13 @@
         .qr-section img { width: 110px; height: 110px; display: block; }
 
         .profile { margin-bottom: 12px; }
-        
-        /* ✨ 이름 자간 및 스타일 수정 */
         .name { 
             font-size: 1.5rem; 
             font-weight: 700; 
             margin: 0 0 4px 0; 
             color: #111; 
-            letter-spacing: 0.4rem; /* 자간을 대폭 넓혀 고급스럽게 */
-            text-indent: 0.4rem; /* 자간 때문에 생기는 오른쪽 쏠림 방지 */
+            letter-spacing: 0.4rem; 
+            text-indent: 0.4rem; 
         }
         .company { font-size: 0.85rem; font-weight: 400; color: #888; margin: 0; }
 
@@ -105,7 +103,6 @@
             flex-shrink: 0;
         }
 
-        /* 🛠 극강의 심플함을 추구한 버튼 그룹 */
         .btn-group {
             display: flex;
             justify-content: center;
@@ -120,11 +117,11 @@
             text-decoration: none;
             font-weight: 500;
             padding: 7px 0;
-            border-radius: 50px; /* 완전한 캡슐형 */
-            font-size: 0.65rem; /* 작고 정갈하게 */
+            border-radius: 50px;
+            font-size: 0.65rem;
             letter-spacing: 0.5px;
             transition: all 0.2s ease;
-            border: 1px solid #df6928; /* 모든 버튼 아웃라인 통일 */
+            border: 1px solid #df6928;
             color: #df6928;
             background-color: transparent;
             cursor: pointer;
@@ -135,14 +132,10 @@
             margin-right: 4px;
         }
 
-        /* 터치 시 살짝 피드백 */
         .action-btn:active {
             background-color: rgba(223, 105, 40, 0.05);
             transform: scale(0.97);
         }
-
-        .links { margin-top: 5px; }
-        
     </style>
 </head>
 <body>
@@ -196,45 +189,77 @@
         </div>
 
         <div class="btn-group">
-            <a href="#" onclick="shareCard()" class="action-btn">
+            <div onclick="shareCard()" class="action-btn">
                 <span>🔗</span> SHARE
-            </a>
+            </div>
             <a href="김유진-디지털명함(세로).png" download="김유진-디지털명함(세로).png" class="action-btn">
                 <span>📥</span> DOWN
             </a>
-            <a href="#" onclick="downloadVCard()" class="action-btn">
+            <div onclick="downloadVCard()" class="action-btn">
                 <span>💾</span> SAVE
-            </a>
+            </div>
         </div>
     </div>
 </div>
 
 <script>
+// 1. 공유 기능 개선
 function shareCard() {
     if (navigator.share) {
         navigator.share({
             title: '김유진 디지털 명함',
+            text: '코드스튜디오 김유진 센터장의 디지털 명함입니다.',
             url: window.location.href,
-        }).catch(console.error);
+        }).then(() => console.log('공유 성공'))
+          .catch((error) => console.log('공유 취소됨', error));
     } else {
+        // Fallback: navigator.share가 작동하지 않는 환경(주로 PC나 인앱 브라우저 일부)
         const t = document.createElement("input");
         document.body.appendChild(t);
         t.value = window.location.href;
         t.select();
         document.execCommand("copy");
         document.body.removeChild(t);
-        alert("링크가 복사되었습니다.");
+        alert("링크가 복사되었습니다. 카카오톡이나 메시지에 붙여넣어 공유해 주세요!");
     }
 }
 
+// 2. 연락처 저장 기능 개선 (vCard 3.0 표준 준수 및 인코딩 보완)
 function downloadVCard() {
-    const v = "BEGIN:VCARD\nVERSION:3.0\nFN:김유진\nORG:코드스튜디오\nTEL;TYPE=CELL:01065581165\nEMAIL:jinimakers@kakao.com\nURL:" + window.location.href + "\nEND:VCARD";
-    const b = new Blob([v], { type: "text/vcard;charset=utf-8" });
-    const u = window.URL.createObjectURL(b);
+    const name = "김유진";
+    const phone = "01065581165";
+    const email = "jinimakers@kakao.com";
+    const url = window.location.href;
+    const org = "코드스튜디오";
+
+    const vcard = 
+        "BEGIN:VCARD\n" +
+        "VERSION:3.0\n" +
+        "N:;김유진;;;\n" +
+        "FN:김유진\n" +
+        "ORG:" + org + "\n" +
+        "TEL;TYPE=CELL,VOICE:" + phone + "\n" +
+        "EMAIL;TYPE=PREF,INTERNET:" + email + "\n" +
+        "URL:" + url + "\n" +
+        "END:VCARD";
+
+    const blob = new Blob([vcard], { type: "text/vcard;charset=utf-8;" });
+    const u = window.URL.createObjectURL(blob);
     const a = document.createElement("a");
+    
+    // 파일명 설정
     a.download = "김유진_연락처.vcf";
     a.href = u;
+    
+    // 강제 클릭 이벤트
+    document.body.appendChild(a);
     a.click();
+    document.body.removeChild(a);
+    
+    // 안내 메시지 (모바일 환경 대응)
+    setTimeout(() => {
+        alert("다운로드된 연락처 파일을 열어 '연락처 저장' 또는 '가져오기'를 눌러주세요.");
+    }, 500);
 }
 </script>
 
