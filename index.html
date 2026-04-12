@@ -4,6 +4,13 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>디지털 명함 - 김유진</title>
+
+    <meta property="og:type" content="website">
+    <meta property="og:title" content="김유진 대표 | 디지털 명함">
+    <meta property="og:description" content="📞 010.6558.1165 | 지니메이커스 · 코드스튜디오">
+    <meta property="og:image" content="https://cordeliai.github.io/jinimakers/og_tag_cover.jpg">
+    <meta property="og:url" content="https://cordeliai.github.io/jinimakers/">
+
     <style>
         @import url('https://fonts.googleapis.com/css2?family=Noto+Sans+KR:wght@300;400;700&display=swap');
 
@@ -36,10 +43,7 @@
             margin-bottom: 25px;
         }
 
-        .card-content {
-            padding: 0 28px;
-        }
-
+        .card-content { padding: 0 28px; }
         .logo-container { margin-bottom: 20px; }
         .logo-container img { width: 140px; height: auto; opacity: 0.85; }
 
@@ -67,199 +71,75 @@
         .divider { width: 25px; height: 1px; background-color: #df6928; margin: 15px auto; opacity: 0.4; }
 
         .contact-info { text-align: left; font-size: 0.85rem; line-height: 1.6; }
+        .info-item { display: flex; align-items: center; margin-bottom: 6px; text-decoration: none; color: #555; }
+        .info-item .label { width: 18px; font-weight: 700; color: #df6928; margin-right: 12px; font-size: 0.75rem; }
 
-        .info-item {
-            display: flex;
-            align-items: center;
-            margin-bottom: 6px;
-            text-decoration: none;
-            color: #555;
-            padding-bottom: 2px;
-        }
+        .address-box { margin-top: 10px; text-align: left; font-size: 0.75rem; color: #999; line-height: 1.4; display: flex; margin-bottom: 25px; }
+        .address-box .label { width: 18px; font-weight: 700; color: #df6928; margin-right: 12px; }
 
-        .info-item .label {
-            width: 18px;
-            font-weight: 700;
-            color: #df6928;
-            margin-right: 12px;
-            flex-shrink: 0;
-            font-size: 0.75rem;
-        }
-
-        .address-box {
-            margin-top: 10px;
-            text-align: left;
-            font-size: 0.75rem;
-            color: #999;
-            line-height: 1.4;
-            display: flex;
-            margin-bottom: 25px;
-        }
-        .address-box .label {
-            width: 18px;
-            font-weight: 700;
-            color: #df6928;
-            margin-right: 12px;
-            flex-shrink: 0;
-        }
-
-        .btn-group {
-            display: flex;
-            justify-content: center;
-            gap: 6px;
-        }
-
+        .btn-group { display: flex; justify-content: center; gap: 6px; }
         .action-btn {
-            flex: 1;
-            display: inline-flex;
-            align-items: center;
-            justify-content: center;
-            text-decoration: none;
-            font-weight: 500;
-            padding: 7px 0;
-            border-radius: 50px;
-            font-size: 0.65rem;
-            letter-spacing: 0.5px;
-            transition: all 0.2s ease;
-            border: 1px solid #df6928;
-            color: #df6928;
-            background-color: transparent;
-            cursor: pointer;
+            flex: 1; display: inline-flex; align-items: center; justify-content: center;
+            text-decoration: none; font-weight: 500; padding: 7px 0; border-radius: 50px;
+            font-size: 0.65rem; letter-spacing: 0.5px; transition: all 0.2s ease;
+            border: 1px solid #df6928; color: #df6928; background-color: transparent; cursor: pointer;
         }
-
-        .action-btn span {
-            font-size: 0.8rem;
-            margin-right: 4px;
-        }
-
-        .action-btn:active {
-            background-color: rgba(223, 105, 40, 0.05);
-            transform: scale(0.97);
-        }
+        .action-btn span { font-size: 0.8rem; margin-right: 4px; }
+        .action-btn:active { background-color: rgba(223, 105, 40, 0.05); transform: scale(0.97); }
     </style>
 </head>
 <body>
 
 <div class="business-card">
     <div class="top-bar"></div>
-
     <div class="card-content">
         <div class="logo-container">
             <img src="COS_로고_영문.png" alt="COde_Studio 로고">
         </div>
-
         <div class="qr-section">
             <img src="25kS9.png" alt="코드스튜디오 해운대센터 QR코드">
         </div>
-
         <div class="profile">
             <p class="name">김유진</p>
             <p class="company">지니메이커스 | 코드스튜디오 해운대센터</p>
         </div>
-
         <div class="divider"></div>
-
         <div class="contact-info">
-            <a href="tel:01065581165" class="info-item">
-                <span class="label">M</span>
-                <span class="value">010.6558.1165</span>
-            </a>
-            <a href="mailto:jinimakers@kakao.com" class="info-item">
-                <span class="label">E</span>
-                <span class="value">jinimakers@kakao.com</span>
-            </a>
+            <a href="tel:01065581165" class="info-item"><span class="label">M</span><span class="value">010.6558.1165</span></a>
+            <a href="mailto:jinimakers@kakao.com" class="info-item"><span class="label">E</span><span class="value">jinimakers@kakao.com</span></a>
             <div class="links">
-                <a href="https://blog.naver.com/forceysh" class="info-item" target="_blank">
-                    <span class="label">B</span>
-                    <span class="value">blog.naver.com/forceysh</span>
-                </a>
-                <a href="https://www.instagram.com/codestudio_hd/" class="info-item" target="_blank">
-                    <span class="label">I</span>
-                    <span class="value">instagram.com/codestudio_hd/</span>
-                </a>
+                <a href="https://blog.naver.com/forceysh" class="info-item" target="_blank"><span class="label">B</span><span class="value">blog.naver.com/forceysh</span></a>
+                <a href="https://www.instagram.com/codestudio_hd/" class="info-item" target="_blank"><span class="label">I</span><span class="value">instagram.com/codestudio_hd/</span></a>
             </div>
         </div>
-
         <div class="address-box">
             <span class="label">A</span>
-            <span class="value">
-                부산광역시 해운대구 마린시티 2로 2<br>
-                마린파크 303호
-            </span>
+            <span class="value">부산광역시 해운대구 마린시티 2로 2 마린파크 303호</span>
         </div>
-
         <div class="btn-group">
-            <div onclick="shareCard()" class="action-btn">
-                <span>🔗</span> SHARE
-            </div>
-            <a href="김유진-디지털명함(세로).png" download="김유진-디지털명함(세로).png" class="action-btn">
-                <span>📥</span> DOWN
-            </a>
-            <div onclick="downloadVCard()" class="action-btn">
-                <span>💾</span> SAVE
-            </div>
+            <div onclick="shareCard()" class="action-btn"><span>🔗</span> SHARE</div>
+            <a href="김유진-디지털명함(세로).png" download="김유진-디지털명함(세로).png" class="action-btn"><span>📥</span> DOWN</a>
+            <div onclick="downloadVCard()" class="action-btn"><span>💾</span> SAVE</div>
         </div>
     </div>
 </div>
 
 <script>
-// 1. 공유 기능 개선
 function shareCard() {
     if (navigator.share) {
-        navigator.share({
-            title: '김유진 디지털 명함',
-            text: '코드스튜디오 김유진 센터장의 디지털 명함입니다.',
-            url: window.location.href,
-        }).then(() => console.log('공유 성공'))
-          .catch((error) => console.log('공유 취소됨', error));
+        navigator.share({ title: '김유진 대표 | 디지털 명함', url: window.location.href });
     } else {
-        // Fallback: navigator.share가 작동하지 않는 환경(주로 PC나 인앱 브라우저 일부)
-        const t = document.createElement("input");
-        document.body.appendChild(t);
-        t.value = window.location.href;
-        t.select();
-        document.execCommand("copy");
-        document.body.removeChild(t);
-        alert("링크가 복사되었습니다. 카카오톡이나 메시지에 붙여넣어 공유해 주세요!");
+        const t = document.createElement("input"); document.body.appendChild(t);
+        t.value = window.location.href; t.select(); document.execCommand("copy");
+        document.body.removeChild(t); alert("링크가 복사되었습니다.");
     }
 }
-
-// 2. 연락처 저장 기능 개선 (vCard 3.0 표준 준수 및 인코딩 보완)
 function downloadVCard() {
-    const name = "김유진";
-    const phone = "01065581165";
-    const email = "jinimakers@kakao.com";
-    const url = window.location.href;
-    const org = "코드스튜디오";
-
-    const vcard = 
-        "BEGIN:VCARD\n" +
-        "VERSION:3.0\n" +
-        "N:;김유진;;;\n" +
-        "FN:김유진\n" +
-        "ORG:" + org + "\n" +
-        "TEL;TYPE=CELL,VOICE:" + phone + "\n" +
-        "EMAIL;TYPE=PREF,INTERNET:" + email + "\n" +
-        "URL:" + url + "\n" +
-        "END:VCARD";
-
-    const blob = new Blob([vcard], { type: "text/vcard;charset=utf-8;" });
-    const u = window.URL.createObjectURL(blob);
-    const a = document.createElement("a");
-    
-    // 파일명 설정
-    a.download = "김유진_연락처.vcf";
-    a.href = u;
-    
-    // 강제 클릭 이벤트
-    document.body.appendChild(a);
+    const v = "BEGIN:VCARD\nVERSION:3.0\nFN:김유진\nTEL;TYPE=CELL:01065581165\nEMAIL:jinimakers@kakao.com\nURL:"+window.location.href+"\nEND:VCARD";
+    const b = new Blob([v], {type:"text/vcard;charset=utf-8;"});
+    const u = window.URL.createObjectURL(b);
+    const a = document.createElement("a"); a.download = "김유진_연락처.vcf"; a.href = u;
     a.click();
-    document.body.removeChild(a);
-    
-    // 안내 메시지 (모바일 환경 대응)
-    setTimeout(() => {
-        alert("다운로드된 연락처 파일을 열어 '연락처 저장' 또는 '가져오기'를 눌러주세요.");
-    }, 500);
 }
 </script>
 
