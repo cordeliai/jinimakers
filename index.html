@@ -116,7 +116,6 @@
             <span class="label">A</span>
             <span class="value">부산광역시 해운대구 마린시티 2로 2 마린파크 303호</span>
         </div>
-        
         <div class="btn-group">
             <div onclick="shareCard()" class="action-btn"><span>🔗</span> 공유</div>
             <a href="김유진-디지털명함(세로).png" download="김유진-디지털명함(세로).png" class="action-btn"><span>📥</span> 명함</a>
@@ -126,14 +125,13 @@
 </div>
 
 <script>
-// 1. 공유 기능
 function shareCard() {
     if (navigator.share) {
         navigator.share({
             title: '김유진 대표 | 디지털 명함',
-            text: '코드스튜디오 김유진 대표의 디지털 명함입니다.',
-            url: window.location.href 
-        }).catch((error) => console.log('공유 취소됨', error));
+            text: '지니메이커스 | 코드스튜디오 김유진 대표의 명함입니다.',
+            url: window.location.href,
+        }).catch(console.error);
     } else {
         const t = document.createElement("input");
         document.body.appendChild(t);
@@ -141,46 +139,41 @@ function shareCard() {
         t.select();
         document.execCommand("copy");
         document.body.removeChild(t);
-        alert("명함 주소가 복사되었습니다.\n원하는 곳(카카오톡, PC 메신저 등)에 붙여넣기 하세요!");
+        alert("명함 주소가 복사되었습니다.\n원하는 곳에 붙여넣기 하세요!");
     }
 }
 
-// 2. 호환성을 극대화한 저장 기능 (BOM 추가 처리)
 function downloadVCard() {
-    // 카카오톡 인앱 브라우저 체크
-    const userAgent = navigator.userAgent.toLowerCase();
-    if (userAgent.indexOf('kakaotalk') > -1) {
-        alert("카카오톡 브라우저에서는 파일 다운로드가 차단될 수 있습니다.\n화면 우측 하단의 [ ⋮ ] 버튼을 눌러 '다른 브라우저로 열기'를 선택해 주세요.");
-        return; // 안내문 띄우고 종료
-    }
-
     const cardUrl = window.location.href;
-    const vcard = "BEGIN:VCARD\n" +
-                  "VERSION:3.0\n" +
-                  "FN:김유진 (코드스튜디오)\n" +
-                  "TEL;TYPE=CELL:01065581165\n" +
-                  "EMAIL:jinimakers@kakao.com\n" +
-                  "ORG:지니메이커스;코드스튜디오\n" +
-                  "URL;TYPE=WORK:" + cardUrl + "\n" + 
-                  "NOTE:디지털 명함 주소: " + cardUrl + "\n" + 
-                  "END:VCARD";
+    const blogUrl = "https://blog.naver.com/forceysh";
+    const instaUrl = "https://www.instagram.com/codestudio_hd/";
 
-    // 아이폰 등 한글 깨짐 방지를 위해 UTF-8 BOM 추가
-    const blob = new Blob([new Uint8Array([0xEF, 0xBB, 0xBF]), vcard], { type: "text/vcard;charset=utf-8" });
-    const url = window.URL.createObjectURL(blob);
+    const v = "BEGIN:VCARD\n" +
+              "VERSION:3.0\n" +
+              "FN:김유진 (코드스튜디오)\n" +
+              "ORG:지니메이커스;코드스튜디오 해운대센터\n" + // 직장 정보 반영
+              "TEL;TYPE=CELL:01065581165\n" +
+              "EMAIL:jinimakers@kakao.com\n" +
+              "ADR;TYPE=WORK:;;부산광역시 해운대구 마린시티 2로 2 마린파크 303호;;;;\n" +
+              "URL;TYPE=WORK:" + cardUrl + "\n" + // 명함 웹사이트 주소
+              "URL;TYPE=Blog:" + blogUrl + "\n" + // 네이버 블로그 주소
+              "URL;TYPE=Instagram:" + instaUrl + "\n" + // 인스타그램 주소
+              "NOTE:디지털 명함: " + cardUrl + "\\n블로그: " + blogUrl + "\\n인스타그램: " + instaUrl + "\n" + // 메모란에 주소 텍스트 백업
+              "END:VCARD";
+
+    // 아이폰 등에서 한글 깨짐 방지를 위한 BOM(0xEF, 0xBB, 0xBF) 추가
+    const b = new Blob([new Uint8Array([0xEF, 0xBB, 0xBF]), v], { type: "text/vcard;charset=utf-8;" });
+    const u = window.URL.createObjectURL(b);
     const a = document.createElement("a");
-    a.style.display = "none";
-    a.href = url;
     a.download = "김유진_연락처.vcf";
-    
+    a.href = u;
     document.body.appendChild(a);
     a.click();
-    
+    document.body.removeChild(a);
+
     setTimeout(() => {
-        document.body.removeChild(a);
-        window.URL.revokeObjectURL(url);
-        alert("📥 연락처 파일이 다운로드 되었습니다.\n\n화면 알림을 눌러 연락처 저장을 완료해 주세요!\n(웹사이트와 메모 항목에 명함 주소가 포함되어 있습니다.)");
-    }, 300);
+        alert("📥 연락처 파일이 다운로드 되었습니다.\n\n[열기]를 누르시면 직장 정보와 함께 명함·블로그·인스타 링크가 포함된 연락처가 저장됩니다.");
+    }, 800);
 }
 </script>
 
