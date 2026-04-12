@@ -77,7 +77,7 @@
         .address-box { margin-top: 10px; text-align: left; font-size: 0.75rem; color: #999; line-height: 1.4; display: flex; margin-bottom: 25px; }
         .address-box .label { width: 18px; font-weight: 700; color: #df6928; margin-right: 12px; }
 
-        /* 🛠 한글 메뉴 스타일 */
+        /* 🛠 한글 메뉴 스타일 (3단 가로) */
         .btn-group { display: flex; justify-content: center; gap: 6px; }
         .action-btn {
             flex: 1; display: inline-flex; align-items: center; justify-content: center;
@@ -117,6 +117,7 @@
             <span class="label">A</span>
             <span class="value">부산광역시 해운대구 마린시티 2로 2 마린파크 303호</span>
         </div>
+        
         <div class="btn-group">
             <div onclick="shareCard()" class="action-btn"><span>🔗</span> 공유</div>
             <a href="김유진-디지털명함(세로).png" download="김유진-디지털명함(세로).png" class="action-btn"><span>📥</span> 명함</a>
@@ -126,14 +127,14 @@
 </div>
 
 <script>
-// 1. 공유 기능: 모바일 기본 공유창 호출
+// 1. 공유 기능: 모바일에서는 공유창, PC에서는 주소 복사
 function shareCard() {
     if (navigator.share) {
         navigator.share({
             title: '김유진 대표 | 디지털 명함',
             text: '코드스튜디오 김유진 대표의 디지털 명함입니다.',
             url: window.location.href 
-        }).catch(console.error);
+        }).catch((error) => console.log('공유 취소됨', error));
     } else {
         const t = document.createElement("input");
         document.body.appendChild(t);
@@ -141,11 +142,11 @@ function shareCard() {
         t.select();
         document.execCommand("copy");
         document.body.removeChild(t);
-        alert("링크가 복사되었습니다. 카톡 등에 붙여넣기 하세요!");
+        alert("명함 주소가 복사되었습니다.\n원하는 곳(카카오톡, PC 메신저 등)에 붙여넣기 하세요!");
     }
 }
 
-// 2. 저장 기능: 클릭 시 연락처 추가 앱 실행
+// 2. 저장 기능: 연락처 파일 다운로드 및 안내 팝업
 function downloadVCard() {
     const vcard = "BEGIN:VCARD\nVERSION:3.0\nFN:김유진 (코드스튜디오)\nTEL;TYPE=CELL:01065581165\nEMAIL:jinimakers@kakao.com\nORG:지니메이커스;코드스튜디오\nURL:"+window.location.href+"\nEND:VCARD";
     const blob = new Blob([vcard], { type: "text/vcard;charset=utf-8;" });
@@ -157,10 +158,10 @@ function downloadVCard() {
     a.click();
     document.body.removeChild(a);
     
-    // 안내 팝업 추가
+    // 다운로드 후 안내 팝업 (스마트폰 한계 보완)
     setTimeout(() => {
-        alert("다운로드된 파일을 눌러 '연락처 저장'을 완료해 주세요!");
-    }, 500);
+        alert("📥 연락처 파일이 다운로드 되었습니다.\n\n화면 상단이나 하단에 뜨는 [열기] 또는 [다운로드 완료] 알림을 누르시면 연락처가 저장됩니다.");
+    }, 800);
 }
 </script>
 
