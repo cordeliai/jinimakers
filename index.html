@@ -8,7 +8,7 @@
     <meta property="og:type" content="website">
     <meta property="og:title" content="김유진 대표 | 디지털 명함">
     <meta property="og:description" content="📞 010.6558.1165 | 지니메이커스 · 코드스튜디오">
-    <meta property="og:image" content="https://cordeliai.github.io/jinimakers/og_tag_cover.jpg?v=1.1">
+    <meta property="og:image" content="https://cordeliai.github.io/jinimakers/og_tag_cover.jpg?v=1.2">
     <meta property="og:url" content="https://cordeliai.github.io/jinimakers/">
 
     <style>
@@ -77,14 +77,15 @@
         .address-box { margin-top: 10px; text-align: left; font-size: 0.75rem; color: #999; line-height: 1.4; display: flex; margin-bottom: 25px; }
         .address-box .label { width: 18px; font-weight: 700; color: #df6928; margin-right: 12px; }
 
+        /* 🛠 한글 메뉴 스타일 */
         .btn-group { display: flex; justify-content: center; gap: 6px; }
         .action-btn {
             flex: 1; display: inline-flex; align-items: center; justify-content: center;
             text-decoration: none; font-weight: 500; padding: 7px 0; border-radius: 50px;
-            font-size: 0.65rem; letter-spacing: 0.5px; transition: all 0.2s ease;
+            font-size: 0.7rem; letter-spacing: 0.5px; transition: all 0.2s ease;
             border: 1px solid #df6928; color: #df6928; background-color: transparent; cursor: pointer;
         }
-        .action-btn span { font-size: 0.8rem; margin-right: 4px; }
+        .action-btn span { font-size: 0.9rem; margin-right: 4px; }
         .action-btn:active { background-color: rgba(223, 105, 40, 0.05); transform: scale(0.97); }
     </style>
 </head>
@@ -117,29 +118,49 @@
             <span class="value">부산광역시 해운대구 마린시티 2로 2 마린파크 303호</span>
         </div>
         <div class="btn-group">
-            <div onclick="shareCard()" class="action-btn"><span>🔗</span> SHARE</div>
-            <a href="김유진-디지털명함(세로).png" download="김유진-디지털명함(세로).png" class="action-btn"><span>📥</span> DOWN</a>
-            <div onclick="downloadVCard()" class="action-btn"><span>💾</span> SAVE</div>
+            <div onclick="shareCard()" class="action-btn"><span>🔗</span> 공유</div>
+            <a href="김유진-디지털명함(세로).png" download="김유진-디지털명함(세로).png" class="action-btn"><span>📥</span> 명함</a>
+            <div onclick="downloadVCard()" class="action-btn"><span>💾</span> 저장</div>
         </div>
     </div>
 </div>
 
 <script>
+// 1. 공유 기능: 모바일 기본 공유창 호출
 function shareCard() {
     if (navigator.share) {
-        navigator.share({ title: '김유진 대표 | 디지털 명함', url: window.location.href });
+        navigator.share({
+            title: '김유진 대표 | 디지털 명함',
+            text: '코드스튜디오 김유진 대표의 디지털 명함입니다.',
+            url: window.location.href 
+        }).catch(console.error);
     } else {
-        const t = document.createElement("input"); document.body.appendChild(t);
-        t.value = window.location.href; t.select(); document.execCommand("copy");
-        document.body.removeChild(t); alert("링크가 복사되었습니다.");
+        const t = document.createElement("input");
+        document.body.appendChild(t);
+        t.value = window.location.href;
+        t.select();
+        document.execCommand("copy");
+        document.body.removeChild(t);
+        alert("링크가 복사되었습니다. 카톡 등에 붙여넣기 하세요!");
     }
 }
+
+// 2. 저장 기능: 클릭 시 연락처 추가 앱 실행
 function downloadVCard() {
-    const v = "BEGIN:VCARD\nVERSION:3.0\nFN:김유진\nTEL;TYPE=CELL:01065581165\nEMAIL:jinimakers@kakao.com\nURL:"+window.location.href+"\nEND:VCARD";
-    const b = new Blob([v], {type:"text/vcard;charset=utf-8;"});
-    const u = window.URL.createObjectURL(b);
-    const a = document.createElement("a"); a.download = "김유진_연락처.vcf"; a.href = u;
+    const vcard = "BEGIN:VCARD\nVERSION:3.0\nFN:김유진 (코드스튜디오)\nTEL;TYPE=CELL:01065581165\nEMAIL:jinimakers@kakao.com\nORG:지니메이커스;코드스튜디오\nURL:"+window.location.href+"\nEND:VCARD";
+    const blob = new Blob([vcard], { type: "text/vcard;charset=utf-8;" });
+    const url = window.URL.createObjectURL(blob);
+    const a = document.createElement("a");
+    a.download = "김유진_연락처.vcf";
+    a.href = url;
+    document.body.appendChild(a);
     a.click();
+    document.body.removeChild(a);
+    
+    // 안내 팝업 추가
+    setTimeout(() => {
+        alert("다운로드된 파일을 눌러 '연락처 저장'을 완료해 주세요!");
+    }, 500);
 }
 </script>
 
