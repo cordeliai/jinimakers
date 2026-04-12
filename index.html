@@ -77,7 +77,6 @@
         .address-box { margin-top: 10px; text-align: left; font-size: 0.75rem; color: #999; line-height: 1.4; display: flex; margin-bottom: 25px; }
         .address-box .label { width: 18px; font-weight: 700; color: #df6928; margin-right: 12px; }
 
-        /* 🛠 한글 메뉴 스타일 (3단 가로) */
         .btn-group { display: flex; justify-content: center; gap: 6px; }
         .action-btn {
             flex: 1; display: inline-flex; align-items: center; justify-content: center;
@@ -146,8 +145,15 @@ function shareCard() {
     }
 }
 
-// 2. 저장 기능 (명함 주소 포함 수정 완료)
+// 2. 호환성을 극대화한 저장 기능 (BOM 추가 처리)
 function downloadVCard() {
+    // 카카오톡 인앱 브라우저 체크
+    const userAgent = navigator.userAgent.toLowerCase();
+    if (userAgent.indexOf('kakaotalk') > -1) {
+        alert("카카오톡 브라우저에서는 파일 다운로드가 차단될 수 있습니다.\n화면 우측 하단의 [ ⋮ ] 버튼을 눌러 '다른 브라우저로 열기'를 선택해 주세요.");
+        return; // 안내문 띄우고 종료
+    }
+
     const cardUrl = window.location.href;
     const vcard = "BEGIN:VCARD\n" +
                   "VERSION:3.0\n" +
@@ -155,22 +161,26 @@ function downloadVCard() {
                   "TEL;TYPE=CELL:01065581165\n" +
                   "EMAIL:jinimakers@kakao.com\n" +
                   "ORG:지니메이커스;코드스튜디오\n" +
-                  "URL;TYPE=WORK:" + cardUrl + "\n" + // 연락처의 '웹사이트' 항목에 주소 추가
-                  "NOTE:디지털 명함 주소: " + cardUrl + "\n" + // 연락처의 '메모' 항목에도 주소 추가
+                  "URL;TYPE=WORK:" + cardUrl + "\n" + 
+                  "NOTE:디지털 명함 주소: " + cardUrl + "\n" + 
                   "END:VCARD";
 
-    const blob = new Blob([vcard], { type: "text/vcard;charset=utf-8;" });
+    // 아이폰 등 한글 깨짐 방지를 위해 UTF-8 BOM 추가
+    const blob = new Blob([new Uint8Array([0xEF, 0xBB, 0xBF]), vcard], { type: "text/vcard;charset=utf-8" });
     const url = window.URL.createObjectURL(blob);
     const a = document.createElement("a");
-    a.download = "김유진_연락처.vcf";
+    a.style.display = "none";
     a.href = url;
+    a.download = "김유진_연락처.vcf";
+    
     document.body.appendChild(a);
     a.click();
-    document.body.removeChild(a);
     
     setTimeout(() => {
+        document.body.removeChild(a);
+        window.URL.revokeObjectURL(url);
         alert("📥 연락처 파일이 다운로드 되었습니다.\n\n화면 알림을 눌러 연락처 저장을 완료해 주세요!\n(웹사이트와 메모 항목에 명함 주소가 포함되어 있습니다.)");
-    }, 800);
+    }, 300);
 }
 </script>
 
