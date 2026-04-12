@@ -127,7 +127,7 @@
 </div>
 
 <script>
-// 1. 공유 기능: 모바일에서는 공유창, PC에서는 주소 복사
+// 1. 공유 기능
 function shareCard() {
     if (navigator.share) {
         navigator.share({
@@ -146,9 +146,19 @@ function shareCard() {
     }
 }
 
-// 2. 저장 기능: 연락처 파일 다운로드 및 안내 팝업
+// 2. 저장 기능 (명함 주소 포함 수정 완료)
 function downloadVCard() {
-    const vcard = "BEGIN:VCARD\nVERSION:3.0\nFN:김유진 (코드스튜디오)\nTEL;TYPE=CELL:01065581165\nEMAIL:jinimakers@kakao.com\nORG:지니메이커스;코드스튜디오\nURL:"+window.location.href+"\nEND:VCARD";
+    const cardUrl = window.location.href;
+    const vcard = "BEGIN:VCARD\n" +
+                  "VERSION:3.0\n" +
+                  "FN:김유진 (코드스튜디오)\n" +
+                  "TEL;TYPE=CELL:01065581165\n" +
+                  "EMAIL:jinimakers@kakao.com\n" +
+                  "ORG:지니메이커스;코드스튜디오\n" +
+                  "URL;TYPE=WORK:" + cardUrl + "\n" + // 연락처의 '웹사이트' 항목에 주소 추가
+                  "NOTE:디지털 명함 주소: " + cardUrl + "\n" + // 연락처의 '메모' 항목에도 주소 추가
+                  "END:VCARD";
+
     const blob = new Blob([vcard], { type: "text/vcard;charset=utf-8;" });
     const url = window.URL.createObjectURL(blob);
     const a = document.createElement("a");
@@ -158,9 +168,8 @@ function downloadVCard() {
     a.click();
     document.body.removeChild(a);
     
-    // 다운로드 후 안내 팝업 (스마트폰 한계 보완)
     setTimeout(() => {
-        alert("📥 연락처 파일이 다운로드 되었습니다.\n\n화면 상단이나 하단에 뜨는 [열기] 또는 [다운로드 완료] 알림을 누르시면 연락처가 저장됩니다.");
+        alert("📥 연락처 파일이 다운로드 되었습니다.\n\n화면 알림을 눌러 연락처 저장을 완료해 주세요!\n(웹사이트와 메모 항목에 명함 주소가 포함되어 있습니다.)");
     }, 800);
 }
 </script>
