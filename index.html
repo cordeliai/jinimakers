@@ -23,6 +23,19 @@
             background-color: #fcfcfc;
             font-family: 'Noto Sans KR', sans-serif;
             color: #333;
+            
+            /* 🔒 텍스트 드래그 및 모바일 꾹 누르기 방지 */
+            -webkit-user-select: none;
+            -moz-user-select: none;
+            -ms-user-select: none;
+            user-select: none;
+            -webkit-touch-callout: none;
+        }
+
+        /* 🔒 이미지 꾹 누르기/드래그 방지 */
+        img {
+            -webkit-user-drag: none;
+            pointer-events: none; 
         }
 
         .business-card {
@@ -71,24 +84,30 @@
         .divider { width: 25px; height: 1px; background-color: #df6928; margin: 15px auto; opacity: 0.4; }
 
         .contact-info { text-align: left; font-size: 0.85rem; line-height: 1.6; }
-        .info-item { display: flex; align-items: center; margin-bottom: 6px; text-decoration: none; color: #555; }
+        
+        /* 🔒 링크 클릭은 정상적으로 되도록 허용 */
+        .info-item { display: flex; align-items: center; margin-bottom: 6px; text-decoration: none; color: #555; pointer-events: auto; }
         .info-item .label { width: 18px; font-weight: 700; color: #df6928; margin-right: 12px; font-size: 0.75rem; }
 
         .address-box { margin-top: 10px; text-align: left; font-size: 0.75rem; color: #999; line-height: 1.4; display: flex; margin-bottom: 25px; }
         .address-box .label { width: 18px; font-weight: 700; color: #df6928; margin-right: 12px; }
 
         .btn-group { display: flex; justify-content: center; gap: 6px; }
+        
+        /* 🔒 버튼 클릭은 정상적으로 되도록 허용 */
         .action-btn {
             flex: 1; display: inline-flex; align-items: center; justify-content: center;
             text-decoration: none; font-weight: 500; padding: 7px 0; border-radius: 50px;
             font-size: 0.7rem; letter-spacing: 0.5px; transition: all 0.2s ease;
             border: 1px solid #df6928; color: #df6928; background-color: transparent; cursor: pointer;
+            pointer-events: auto;
         }
         .action-btn span { font-size: 0.9rem; margin-right: 4px; }
         .action-btn:active { background-color: rgba(223, 105, 40, 0.05); transform: scale(0.97); }
     </style>
 </head>
-<body>
+
+<body oncontextmenu="return false" ondragstart="return false" onselectstart="return false">
 
 <div class="business-card">
     <div class="top-bar"></div>
@@ -125,6 +144,14 @@
 </div>
 
 <script>
+// 🔒 PC 키보드 단축키 방지 (F12, Ctrl+C, Ctrl+S 등 차단)
+document.addEventListener('keydown', function(e) {
+    if (e.keyCode == 123 || (e.ctrlKey && e.shiftKey && e.keyCode == 73) || (e.ctrlKey && e.keyCode == 67) || (e.ctrlKey && e.keyCode == 83)) {
+        e.preventDefault();
+        return false;
+    }
+});
+
 function shareCard() {
     if (navigator.share) {
         navigator.share({
@@ -151,14 +178,14 @@ function downloadVCard() {
     const v = "BEGIN:VCARD\n" +
               "VERSION:3.0\n" +
               "FN:김유진 (코드스튜디오)\n" +
-              "ORG:지니메이커스;코드스튜디오 해운대센터\n" + // 직장 정보 반영
+              "ORG:지니메이커스;코드스튜디오 해운대센터\n" + 
               "TEL;TYPE=CELL:01065581165\n" +
               "EMAIL:jinimakers@kakao.com\n" +
               "ADR;TYPE=WORK:;;부산광역시 해운대구 마린시티 2로 2 마린파크 303호;;;;\n" +
-              "URL;TYPE=WORK:" + cardUrl + "\n" + // 명함 웹사이트 주소
-              "URL;TYPE=Blog:" + blogUrl + "\n" + // 네이버 블로그 주소
-              "URL;TYPE=Instagram:" + instaUrl + "\n" + // 인스타그램 주소
-              "NOTE:디지털 명함: " + cardUrl + "\\n블로그: " + blogUrl + "\\n인스타그램: " + instaUrl + "\n" + // 메모란에 주소 텍스트 백업
+              "URL;TYPE=WORK:" + cardUrl + "\n" + 
+              "URL;TYPE=Blog:" + blogUrl + "\n" + 
+              "URL;TYPE=Instagram:" + instaUrl + "\n" + 
+              "NOTE:디지털 명함: " + cardUrl + "\\n블로그: " + blogUrl + "\\n인스타그램: " + instaUrl + "\n" + 
               "END:VCARD";
 
     // 아이폰 등에서 한글 깨짐 방지를 위한 BOM(0xEF, 0xBB, 0xBF) 추가
