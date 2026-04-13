@@ -85,16 +85,28 @@
 
         .contact-info { text-align: left; font-size: 0.85rem; line-height: 1.6; }
         
-        /* 🔒 링크 클릭은 정상적으로 되도록 허용 */
+        /* 🔒 링크 클릭 허용 */
         .info-item { display: flex; align-items: center; margin-bottom: 6px; text-decoration: none; color: #555; pointer-events: auto; }
         .info-item .label { width: 18px; font-weight: 700; color: #df6928; margin-right: 12px; font-size: 0.75rem; }
 
-        .address-box { margin-top: 10px; text-align: left; font-size: 0.75rem; color: #999; line-height: 1.4; display: flex; margin-bottom: 25px; }
-        .address-box .label { width: 18px; font-weight: 700; color: #df6928; margin-right: 12px; }
+        /* 📍 주소/길찾기 스타일 최적화 */
+        .address-box { 
+            margin-top: 10px; 
+            text-align: left; 
+            font-size: 0.75rem; 
+            color: #555; 
+            line-height: 1.4; 
+            display: flex; 
+            margin-bottom: 25px; 
+            text-decoration: none;
+            pointer-events: auto;
+            cursor: pointer;
+        }
+        .address-box .label { width: 18px; font-weight: 700; color: #df6928; margin-right: 12px; flex-shrink: 0; }
+        .address-box:active { background-color: #f9f9f9; }
 
         .btn-group { display: flex; justify-content: center; gap: 6px; }
         
-        /* 🔒 버튼 클릭은 정상적으로 되도록 허용 */
         .action-btn {
             flex: 1; display: inline-flex; align-items: center; justify-content: center;
             text-decoration: none; font-weight: 500; padding: 7px 0; border-radius: 50px;
@@ -131,10 +143,15 @@
                 <a href="https://www.instagram.com/codestudio_hd/" class="info-item" target="_blank"><span class="label">I</span><span class="value">instagram.com/codestudio_hd/</span></a>
             </div>
         </div>
-        <div class="address-box">
+        
+        <a href="https://m.map.naver.com/search2/search.naver?query=부산광역시 해운대구 마린시티 2로 2 마린파크 303호" target="_blank" class="address-box">
             <span class="label">A</span>
-            <span class="value">부산광역시 해운대구 마린시티 2로 2 마린파크 303호</span>
-        </div>
+            <span class="value">
+                부산광역시 해운대구 마린시티 2로 2<br>
+                마린파크 303호 (네이버 길찾기)
+            </span>
+        </a>
+
         <div class="btn-group">
             <div onclick="shareCard()" class="action-btn"><span>🔗</span> 공유</div>
             <a href="김유진-디지털명함(세로).png" download="김유진-디지털명함(세로).png" class="action-btn"><span>📥</span> 명함</a>
@@ -144,7 +161,7 @@
 </div>
 
 <script>
-// 🔒 PC 키보드 단축키 방지 (F12, Ctrl+C, Ctrl+S 등 차단)
+// 🔒 PC 보안 설정
 document.addEventListener('keydown', function(e) {
     if (e.keyCode == 123 || (e.ctrlKey && e.shiftKey && e.keyCode == 73) || (e.ctrlKey && e.keyCode == 67) || (e.ctrlKey && e.keyCode == 83)) {
         e.preventDefault();
@@ -152,6 +169,7 @@ document.addEventListener('keydown', function(e) {
     }
 });
 
+// 1. 공유 기능
 function shareCard() {
     if (navigator.share) {
         navigator.share({
@@ -166,10 +184,11 @@ function shareCard() {
         t.select();
         document.execCommand("copy");
         document.body.removeChild(t);
-        alert("명함 주소가 복사되었습니다.\n원하는 곳에 붙여넣기 하세요!");
+        alert("명함 주소가 복사되었습니다.\n원하는 곳에 붙여넣기 하여 공유해 보세요!");
     }
 }
 
+// 2. 저장 기능
 function downloadVCard() {
     const cardUrl = window.location.href;
     const blogUrl = "https://blog.naver.com/forceysh";
@@ -188,7 +207,6 @@ function downloadVCard() {
               "NOTE:디지털 명함: " + cardUrl + "\\n블로그: " + blogUrl + "\\n인스타그램: " + instaUrl + "\n" + 
               "END:VCARD";
 
-    // 아이폰 등에서 한글 깨짐 방지를 위한 BOM(0xEF, 0xBB, 0xBF) 추가
     const b = new Blob([new Uint8Array([0xEF, 0xBB, 0xBF]), v], { type: "text/vcard;charset=utf-8;" });
     const u = window.URL.createObjectURL(b);
     const a = document.createElement("a");
