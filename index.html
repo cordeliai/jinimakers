@@ -267,41 +267,43 @@ function downloadVCard() {
     const blogUrl = "https://blog.naver.com/forceysh";
     const instaUrl = "https://www.instagram.com/codestudio_hd/";
 
-    // 💡 호환성 핵심 수정: N(성명분리) 필드와 FN(전체성명) 필드를 명확하게 구분
-    // 불필요한 속성을 제거하고 가장 깨끗한 3.0 포맷 유지
+    // 💡 호환성 핵심 수정: 복잡한 태그를 제거하고 가장 기본적인 필드만 사용
+    // 아이폰과 안드로이드 최신 기종에서 공통적으로 인식하는 3.0 포맷 최적화
     const vCardData = [
         "BEGIN:VCARD",
         "VERSION:3.0",
-        "FN;CHARSET=UTF-8:김유진 대표(코드스튜디오)",
-        "N;CHARSET=UTF-8:김;유진;;;",
-        "ORG;CHARSET=UTF-8:지니메이커스;코드스튜디오 해운대센터",
-        "TITLE;CHARSET=UTF-8:대표",
-        "TEL;TYPE=CELL,VOICE:01065581165",
-        "EMAIL;TYPE=PREF,INTERNET:jinimakers@kakao.com",
-        "ADR;TYPE=WORK;CHARSET=UTF-8:;;부산광역시 해운대구 마린시티 2로 2 마린파크 303호;부산;;48117;대한민국",
-        "URL;TYPE=WORK:" + cardUrl,
-        "NOTE;CHARSET=UTF-8:블로그: " + blogUrl + " / 인스타그램: " + instaUrl,
+        "N:김;유진;;;",
+        "FN:김유진 (코드스튜디오)",
+        "ORG:지니메이커스;코드스튜디오 해운대센터",
+        "TITLE:대표",
+        "TEL;TYPE=CELL:01065581165",
+        "EMAIL;TYPE=INTERNET:jinimakers@kakao.com",
+        "ADR;TYPE=WORK:;;부산광역시 해운대구 마린시티 2로 2 마린파크 303호;부산;;48117;대한민국",
+        "URL:" + cardUrl,
+        "NOTE:블로그: " + blogUrl + " / 인스타그램: " + instaUrl,
         "END:VCARD"
     ].join("\r\n");
 
-    // UTF-8 BOM을 추가하고 MIME 타입을 text/x-vcard로 설정 (일부 기기에서 x- 접두사가 인식률이 더 높음)
-    const blob = new Blob([new Uint8Array([0xEF, 0xBB, 0xBF]), vCardData], { type: "text/x-vcard;charset=utf-8" });
+    // UTF-8 BOM을 추가하여 한글 깨짐 방지
+    const charCode = new Uint8Array([0xEF, 0xBB, 0xBF]);
+    const blob = new Blob([charCode, vCardData], { type: "text/vcard" });
     const url = window.URL.createObjectURL(blob);
-    const a = document.createElement("a");
     
+    const a = document.createElement("a");
     a.style.display = 'none';
-    a.download = "김유진_연락처.vcf";
     a.href = url;
+    a.download = "김유진_대표.vcf";
     document.body.appendChild(a);
     a.click();
     
+    // 다운로드 완료 후 리소스 정리 지연 (모바일 대응)
     setTimeout(() => {
         document.body.removeChild(a);
         window.URL.revokeObjectURL(url);
-    }, 1000);
+    }, 2000);
     
     setTimeout(() => {
-        alert("📥 연락처 파일이 다운로드 되었습니다.\n\n파일을 눌러 [연락처 저장]을 진행해 주세요.");
+        alert("📥 연락처 다운로드가 시작되었습니다.\n\n파일을 눌러 [연락처 저장]을 진행해 주세요.");
     }, 500);
 }
 </script>
