@@ -261,30 +261,31 @@ function shareCard() {
     }
 }
 
-// 2. 연락처 저장 기능 (모바일 호환성 극대화 버전)
+// 2. 연락처 저장 기능 (가장 높은 호환성의 vCard 표준 적용)
 function downloadVCard() {
     const cardUrl = window.location.href;
     const blogUrl = "https://blog.naver.com/forceysh";
     const instaUrl = "https://www.instagram.com/codestudio_hd/";
 
-    // 💡 최적화: 줄바꿈을 \r\n으로 통일하고, 호환성이 낮은 태그 제거
+    // 💡 호환성 핵심 수정: N(성명분리) 필드와 FN(전체성명) 필드를 명확하게 구분
+    // 불필요한 속성을 제거하고 가장 깨끗한 3.0 포맷 유지
     const vCardData = [
         "BEGIN:VCARD",
         "VERSION:3.0",
-        "FN:김유진 (코드스튜디오)",
-        "N:김;유진;;대표;",
-        "ORG:지니메이커스;코드스튜디오 해운대센터",
-        "TITLE:대표",
+        "FN;CHARSET=UTF-8:김유진 대표(코드스튜디오)",
+        "N;CHARSET=UTF-8:김;유진;;;",
+        "ORG;CHARSET=UTF-8:지니메이커스;코드스튜디오 해운대센터",
+        "TITLE;CHARSET=UTF-8:대표",
         "TEL;TYPE=CELL,VOICE:01065581165",
         "EMAIL;TYPE=PREF,INTERNET:jinimakers@kakao.com",
-        "ADR;TYPE=WORK:;;부산광역시 해운대구 마린시티 2로 2 마린파크 303호;부산;해운대구;48117;대한민국",
+        "ADR;TYPE=WORK;CHARSET=UTF-8:;;부산광역시 해운대구 마린시티 2로 2 마린파크 303호;부산;;48117;대한민국",
         "URL;TYPE=WORK:" + cardUrl,
-        "NOTE:블로그: " + blogUrl + " / 인스타그램: " + instaUrl,
+        "NOTE;CHARSET=UTF-8:블로그: " + blogUrl + " / 인스타그램: " + instaUrl,
         "END:VCARD"
     ].join("\r\n");
 
-    // UTF-8 BOM과 함께 MIME 타입을 text/vcard로 명시하여 인식률 향상
-    const blob = new Blob([new Uint8Array([0xEF, 0xBB, 0xBF]), vCardData], { type: "text/vcard" });
+    // UTF-8 BOM을 추가하고 MIME 타입을 text/x-vcard로 설정 (일부 기기에서 x- 접두사가 인식률이 더 높음)
+    const blob = new Blob([new Uint8Array([0xEF, 0xBB, 0xBF]), vCardData], { type: "text/x-vcard;charset=utf-8" });
     const url = window.URL.createObjectURL(blob);
     const a = document.createElement("a");
     
@@ -294,7 +295,6 @@ function downloadVCard() {
     document.body.appendChild(a);
     a.click();
     
-    // 모바일에서의 안정적인 실행을 위해 지연 삭제
     setTimeout(() => {
         document.body.removeChild(a);
         window.URL.revokeObjectURL(url);
