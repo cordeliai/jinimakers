@@ -24,7 +24,7 @@
             background-color: #fcfcfc;
             font-family: 'Noto Sans KR', sans-serif;
             color: #333;
-            /* 🔒 보안: 텍스트 드래그 및 복사 방지 */
+            /* 🔒 보안: 텍스트 복사 및 드래그 방지 */
             -webkit-user-select: none;
             -moz-user-select: none;
             -ms-user-select: none;
@@ -103,7 +103,6 @@
             font-size: 0.75rem;
         }
 
-        /* 📍 주소/길찾기 섹션 */
         .address-box {
             margin-top: 10px;
             text-align: left;
@@ -168,17 +167,14 @@
     <div class="top-bar"></div>
 
     <div class="card-content">
-        <!-- 1. 로고 섹션 -->
         <div class="logo-container">
             <img src="COS_로고_영문.png" alt="CODE STUDIO 로고">
         </div>
 
-        <!-- 2. QR코드 섹션 -->
         <div class="qr-section">
             <img src="25kS9.png" alt="명함 QR코드">
         </div>
 
-        <!-- 3. 프로필 섹션 -->
         <div class="profile">
             <p class="name">김유진</p>
             <p class="company">지니메이커스 | 코드스튜디오 해운대센터</p>
@@ -186,7 +182,6 @@
 
         <div class="divider"></div>
 
-        <!-- 4. 연락처 정보 -->
         <div class="contact-info">
             <a href="tel:01065581165" class="info-item">
                 <span class="label">M</span>
@@ -208,7 +203,6 @@
             </div>
         </div>
 
-        <!-- 5. 주소 섹션 (네이버 지도 연결) -->
         <a href="https://m.map.naver.com/search2/search.naver?query=부산광역시 해운대구 마린시티 2로 2 마린파크 303호" target="_blank" class="address-box">
             <span class="label">A</span>
             <span class="value">
@@ -217,12 +211,10 @@
             </span>
         </a>
 
-        <!-- 6. 하단 버튼 그룹 -->
         <div class="btn-group">
             <div onclick="shareCard()" class="action-btn">
                 <span>🔗</span> 공유
             </div>
-            <!-- 수정한 파일명 반영 -->
             <a href="김유진-디지털명함(세로).png" download="김유진-디지털명함(세로).png" class="action-btn">
                 <span>📥</span> 명함
             </a>
@@ -234,7 +226,7 @@
 </div>
 
 <script>
-// 🔒 보안 기능: 우클릭, 드래그, 개발자 도구 단축키 완전 차단
+// 🔒 보안 기능: F12 및 복사 방지
 document.addEventListener('keydown', function(e) {
     if (e.keyCode == 123 || (e.ctrlKey && e.shiftKey && e.keyCode == 73) || (e.ctrlKey && e.keyCode == 67) || (e.ctrlKey && e.keyCode == 83)) {
         e.preventDefault();
@@ -257,49 +249,52 @@ function shareCard() {
         t.select();
         document.execCommand("copy");
         document.body.removeChild(t);
-        alert("명함 주소가 복사되었습니다.\n원하는 곳에 붙여넣기 하여 공유해 보세요!");
+        alert("명함 주소가 복사되었습니다.");
     }
 }
 
-// 2. 연락처 저장 기능 (가장 높은 호환성의 vCard 표준 적용)
+// 2. 연락처 저장 기능 (가장 높은 호환성의 vCard 3.0 정밀 규격)
 function downloadVCard() {
     const cardUrl = window.location.href;
-    
-    // 💡 오류 해결을 위한 핵심 수정: 특수문자 제거 및 최소화된 필드 구성
-    // 파일명과 데이터 내부에 기종별 충돌 가능성이 있는 괄호() 등을 제거함
-    const vCardData = [
+
+    // 💡 호환성 핵심 수정: 아이폰/안드로이드 모두에서 인식 가능한 최소한의 필수 필드만 구성
+    // 각 라인은 반드시 CRLF(\r\n)로 끝나야 하며, 특수문자 사용을 자제했습니다.
+    const vCardContent = [
         "BEGIN:VCARD",
         "VERSION:3.0",
-        "N:김;유진;;;",
         "FN:김유진",
+        "N:김;유진;;;",
         "ORG:지니메이커스;코드스튜디오",
         "TITLE:대표",
         "TEL;TYPE=CELL:01065581165",
         "EMAIL;TYPE=WORK:jinimakers@kakao.com",
-        "ADR;TYPE=WORK:;;부산광역시 해운대구 마린시티 2로 2 마린파크 303호;;;;",
+        "ADR;TYPE=WORK:;;부산 마린시티 2로 2 마린파크 303호;;;;",
         "URL:" + cardUrl,
         "END:VCARD"
     ].join("\r\n");
 
-    // UTF-8 BOM(유니코드 식별자)을 정확히 추가하여 파일 깨짐 방지
+    // 유니코드(UTF-8) BOM 추가
     const bom = new Uint8Array([0xEF, 0xBB, 0xBF]);
-    const blob = new Blob([bom, vCardData], { type: "text/vcard;charset=utf-8" });
+    const blob = new Blob([bom, vCardContent], { type: "text/x-vcard;charset=utf-8" });
     const url = window.URL.createObjectURL(blob);
     
-    const a = document.createElement("a");
-    a.style.display = 'none';
-    a.href = url;
-    a.download = "kimyujin.vcf"; // 영어 파일명이 호환성에 더 유리함
-    document.body.appendChild(a);
-    a.click();
+    const link = document.createElement("a");
+    link.style.display = 'none';
+    link.href = url;
+    // 일부 기기에서 한글 파일명이 오류를 일으키므로 영문 파일명으로 설정
+    link.download = "contact_kim.vcf";
     
+    document.body.appendChild(link);
+    link.click();
+    
+    // 모바일 안정성을 위해 리소스 해제 지연
     setTimeout(() => {
-        document.body.removeChild(a);
+        document.body.removeChild(link);
         window.URL.revokeObjectURL(url);
-    }, 2000);
+    }, 3000);
     
     setTimeout(() => {
-        alert("📥 연락처 다운로드가 시작되었습니다.\n\n⚠️ 만약 '읽을 수 없음'이 뜬다면:\n카카오톡이 아닌 '크롬(Chrome)'이나 '사파리(Safari)' 앱에서 접속해 주세요!");
+        alert("📥 연락처 저장을 위해 파일을 열어주세요.\n\n⚠️ 안될 경우 '삼성 인터넷'이나 '크롬' 앱으로 접속 부탁드립니다.");
     }, 500);
 }
 </script>
