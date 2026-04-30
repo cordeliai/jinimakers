@@ -99,16 +99,20 @@
         .address-box .label { width: 18px; font-weight: 700; color: #df6928; margin-right: 12px; flex-shrink: 0; }
         .address-box:active { background-color: #f9f9f9; }
 
-        .btn-group { display: flex; justify-content: center; gap: 10px; }
+        /* 버튼 그룹 레이아웃 수정 */
+        .btn-group { display: flex; justify-content: center; gap: 6px; }
         .action-btn {
             flex: 1; display: inline-flex; align-items: center; justify-content: center;
             text-decoration: none; font-weight: 500; padding: 10px 0; border-radius: 50px;
-            font-size: 0.8rem; letter-spacing: 0.5px; transition: all 0.2s ease;
+            font-size: 0.65rem; letter-spacing: -0.5px; transition: all 0.2s ease;
             border: 1px solid #df6928; color: #df6928; background-color: transparent; cursor: pointer;
             pointer-events: auto;
         }
-        .action-btn span { font-size: 1rem; margin-right: 6px; }
+        .action-btn span { font-size: 0.8rem; margin-right: 3px; }
         .action-btn:active { background-color: rgba(223, 105, 40, 0.05); transform: scale(0.97); }
+
+        /* 카톡 전용 색상 강조 (선택사항) */
+        .kakao-btn { background-color: #fee500; border-color: #fee500; color: #111; }
     </style>
 </head>
 
@@ -130,12 +134,6 @@
         <div class="divider"></div>
         <div class="contact-info">
             <a href="tel:01065581165" class="info-item"><span class="label">M</span><span class="value">010.6558.1165</span></a>
-            
-            <!-- 📍 오픈채팅 링크가 적용된 상담 버튼 -->
-            <a href="https://open.kakao.com/o/sdQg6Jsi" class="info-item" target="_blank">
-                <span class="label">K</span><span class="value" style="color:#df6928; font-weight:700;">실시간 상담 및 오픈채팅</span>
-            </a>
-
             <a href="mailto:jinimakers@kakao.com" class="info-item"><span class="label">E</span><span class="value">jinimakers@kakao.com</span></a>
             <div class="links">
                 <a href="https://blog.naver.com/forceysh" class="info-item" target="_blank"><span class="label">B</span><span class="value">blog.naver.com/forceysh</span></a>
@@ -151,15 +149,16 @@
             </span>
         </a>
 
+        <!-- 버튼 그룹: 3개로 구성 -->
         <div class="btn-group">
-            <div onclick="shareCard()" class="action-btn"><span>🔗</span> 공유하기</div>
+            <div onclick="shareCard()" class="action-btn"><span>🔗</span> 공유</div>
+            <a href="https://open.kakao.com/o/sdQg6Jsi" target="_blank" class="action-btn kakao-btn"><span>💬</span> 카톡상담</a>
             <a href="김유진-디지털명함(세로).png" download="김유진-디지털명함(세로).png" class="action-btn"><span>📥</span> 명함저장</a>
         </div>
     </div>
 </div>
 
 <script>
-/* 보안: 우클릭/단축키 차단 */
 document.addEventListener('keydown', function(e) {
     if (e.keyCode == 123 || (e.ctrlKey && e.shiftKey && e.keyCode == 73) || (e.ctrlKey && e.keyCode == 67) || (e.ctrlKey && e.keyCode == 83)) {
         e.preventDefault();
@@ -167,7 +166,6 @@ document.addEventListener('keydown', function(e) {
     }
 });
 
-/* 공유 기능 */
 function shareCard() {
     if (navigator.share) {
         navigator.share({
