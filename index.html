@@ -94,18 +94,20 @@
             margin-bottom: 25px; 
             text-decoration: none;
             pointer-events: auto;
+            cursor: pointer;
         }
         .address-box .label { width: 18px; font-weight: 700; color: #df6928; margin-right: 12px; flex-shrink: 0; }
+        .address-box:active { background-color: #f9f9f9; }
 
-        .btn-group { display: flex; justify-content: center; gap: 6px; }
+        .btn-group { display: flex; justify-content: center; gap: 10px; }
         .action-btn {
             flex: 1; display: inline-flex; align-items: center; justify-content: center;
-            text-decoration: none; font-weight: 500; padding: 7px 0; border-radius: 50px;
-            font-size: 0.7rem; letter-spacing: 0.5px; transition: all 0.2s ease;
+            text-decoration: none; font-weight: 500; padding: 10px 0; border-radius: 50px;
+            font-size: 0.8rem; letter-spacing: 0.5px; transition: all 0.2s ease;
             border: 1px solid #df6928; color: #df6928; background-color: transparent; cursor: pointer;
             pointer-events: auto;
         }
-        .action-btn span { font-size: 0.9rem; margin-right: 4px; }
+        .action-btn span { font-size: 1rem; margin-right: 6px; }
         .action-btn:active { background-color: rgba(223, 105, 40, 0.05); transform: scale(0.97); }
     </style>
 </head>
@@ -144,15 +146,13 @@
         </a>
 
         <div class="btn-group">
-            <div onclick="shareCard()" class="action-btn"><span>🔗</span> 공유</div>
-            <a href="김유진-디지털명함(세로).png" download="김유진-디지털명함(세로).png" class="action-btn"><span>📥</span> 명함</a>
-            <div onclick="downloadVCard()" class="action-btn"><span>💾</span> 저장</div>
+            <div onclick="shareCard()" class="action-btn"><span>🔗</span> 공유하기</div>
+            <a href="김유진-디지털명함(세로).png" download="김유진-디지털명함(세로).png" class="action-btn"><span>📥</span> 명함저장</a>
         </div>
     </div>
 </div>
 
 <script>
-// 보안 설정
 document.addEventListener('keydown', function(e) {
     if (e.keyCode == 123 || (e.ctrlKey && e.shiftKey && e.keyCode == 73) || (e.ctrlKey && e.keyCode == 67) || (e.ctrlKey && e.keyCode == 83)) {
         e.preventDefault();
@@ -174,42 +174,8 @@ function shareCard() {
         t.select();
         document.execCommand("copy");
         document.body.removeChild(t);
-        alert("명함 주소가 복사되었습니다.");
+        alert("명함 주소가 복사되었습니다.\n원하는 곳에 붙여넣기 하여 공유해 보세요!");
     }
-}
-
-function downloadVCard() {
-    const cardUrl = window.location.href;
-    const blogUrl = "https://blog.naver.com/forceysh";
-    const instaUrl = "https://www.instagram.com/codestudio_hd/";
-
-    // 🔒 호환성 극대화를 위한 vCard 2.1 포맷 및 \r\n 줄바꿈 사용
-    const v = "BEGIN:VCARD\r\n" +
-              "VERSION:2.1\r\n" +
-              "N:김;유진;;;\r\n" +
-              "FN:김유진 (코드스튜디오)\r\n" +
-              "ORG:지니메이커스;코드스튜디오 해운대센터\r\n" + 
-              "TEL;CELL:010-6558-1165\r\n" +
-              "EMAIL:jinimakers@kakao.com\r\n" +
-              "ADR;WORK;CHARSET=UTF-8:;;부산광역시 해운대구 마린시티 2로 2 마린파크 303호;;;;\r\n" +
-              "URL;WORK:" + cardUrl + "\r\n" + 
-              "URL;BLOG:" + blogUrl + "\r\n" + 
-              "URL;INSTA:" + instaUrl + "\r\n" + 
-              "NOTE:디지털 명함: " + cardUrl + "\r\n" + 
-              "END:VCARD";
-
-    const b = new Blob([new Uint8Array([0xEF, 0xBB, 0xBF]), v], { type: "text/x-vcard;charset=utf-8;" });
-    const u = window.URL.createObjectURL(b);
-    const a = document.createElement("a");
-    a.download = "contact.vcf";
-    a.href = u;
-    document.body.appendChild(a);
-    a.click();
-    document.body.removeChild(a);
-
-    setTimeout(() => {
-        alert("📥 연락처 파일이 다운로드 되었습니다.\n\n[열기]를 눌러도 반응이 없다면 연락처 앱의 '가져오기' 메뉴를 이용해주세요.");
-    }, 800);
 }
 </script>
 
