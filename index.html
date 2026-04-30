@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>디지털 명함 - 김유진</title>
+    <title>디지털 명함 - 김유진 대표</title>
 
     <meta property="og:type" content="website">
     <meta property="og:title" content="김유진 대표 | 디지털 명함">
@@ -15,106 +15,72 @@
         @import url('https://fonts.googleapis.com/css2?family=Noto+Sans+KR:wght@300;400;700&display=swap');
 
         body {
-            display: flex;
-            justify-content: center;
-            align-items: center;
-            min-height: 100vh;
-            margin: 0;
-            background-color: #fcfcfc;
-            font-family: 'Noto Sans KR', sans-serif;
-            color: #333;
-            -webkit-user-select: none;
-            -moz-user-select: none;
-            -ms-user-select: none;
-            user-select: none;
-            -webkit-touch-callout: none;
+            display: flex; justify-content: center; align-items: center; min-height: 100vh;
+            margin: 0; background-color: #fcfcfc; font-family: 'Noto Sans KR', sans-serif; color: #333;
+            -webkit-user-select: none; user-select: none;
         }
 
-        img {
-            -webkit-user-drag: none;
-            pointer-events: none; 
-        }
+        img { -webkit-user-drag: none; pointer-events: none; }
 
         .business-card {
-            background-color: #ffffff;
-            width: 340px;
-            padding: 0 0 30px 0;
-            box-sizing: border-box;
-            border-radius: 20px;
-            box-shadow: 0 4px 20px rgba(0,0,0,0.03);
-            overflow: hidden;
-            text-align: center;
+            background-color: #ffffff; width: 340px; padding: 0 0 30px 0;
+            border-radius: 20px; box-shadow: 0 4px 20px rgba(0,0,0,0.03);
+            overflow: hidden; text-align: center;
         }
 
-        .top-bar {
-            height: 6px;
-            background-color: #df6928;
-            width: 100%;
-            margin-bottom: 25px;
-        }
-
+        .top-bar { height: 6px; background-color: #df6928; margin-bottom: 25px; }
         .card-content { padding: 0 28px; }
         .logo-container { margin-bottom: 20px; }
-        .logo-container img { width: 140px; height: auto; opacity: 0.85; }
+        .logo-container img { width: 140px; opacity: 0.85; }
 
         .qr-section {
-            background-color: #fff;
-            padding: 8px;
-            border: 1px solid #f0f0f0;
-            border-radius: 16px;
-            display: inline-block;
-            margin-bottom: 20px;
+            background-color: #fff; padding: 8px; border: 1px solid #f0f0f0;
+            border-radius: 16px; display: inline-block; margin-bottom: 20px;
         }
         .qr-section img { width: 110px; height: 110px; display: block; }
 
         .profile { margin-bottom: 12px; }
-        .name { 
-            font-size: 1.5rem; 
-            font-weight: 700; 
-            margin: 0 0 4px 0; 
-            color: #111; 
-            letter-spacing: 0.4rem; 
-            text-indent: 0.4rem; 
-        }
-        .company { font-size: 0.85rem; font-weight: 400; color: #888; margin: 0; }
+        .name { font-size: 1.5rem; font-weight: 700; color: #111; letter-spacing: 0.4rem; text-indent: 0.4rem; margin: 0; }
+        .company { font-size: 0.85rem; color: #888; margin-top: 4px; }
 
         .divider { width: 25px; height: 1px; background-color: #df6928; margin: 15px auto; opacity: 0.4; }
 
+        /* 📍 시각적 안내 가이드 */
+        .click-guide { font-size: 0.7rem; color: #df6928; font-weight: 700; margin-bottom: 10px; display: block; }
+
         .contact-info { text-align: left; font-size: 0.85rem; line-height: 1.6; }
-        .info-item { display: flex; align-items: center; margin-bottom: 6px; text-decoration: none; color: #555; pointer-events: auto; }
+        
+        /* 📍 터치하고 싶게 만드는 항목 디자인 */
+        .info-item { 
+            display: flex; align-items: center; justify-content: space-between;
+            margin-bottom: 8px; text-decoration: none; color: #555; 
+            padding: 6px 10px; border-radius: 8px; transition: all 0.2s;
+            background-color: #f9f9f9; 
+            pointer-events: auto;
+        }
+        .info-item:active { background-color: #f0f0f0; transform: scale(0.98); }
+        .info-content { display: flex; align-items: center; }
         .info-item .label { width: 18px; font-weight: 700; color: #df6928; margin-right: 12px; font-size: 0.75rem; }
+        .arrow-hint { font-size: 0.8rem; color: #ccc; }
 
         .address-box { 
-            margin-top: 10px; 
-            text-align: left; 
-            font-size: 0.75rem; 
-            color: #555; 
-            line-height: 1.4; 
-            display: flex; 
-            margin-bottom: 15px; 
-            text-decoration: none;
+            margin-top: 10px; text-align: left; font-size: 0.75rem; color: #555; 
+            line-height: 1.4; display: flex; margin-bottom: 15px; text-decoration: none;
+            padding: 8px 10px; border-radius: 8px; background-color: #f9f9f9;
             pointer-events: auto;
-            cursor: pointer;
         }
         .address-box .label { width: 18px; font-weight: 700; color: #df6928; margin-right: 12px; flex-shrink: 0; }
 
-        /* 📍 추가된 브라우저 안내 문구 스타일 */
-        .browser-notice {
-            font-size: 0.65rem;
-            color: #bbb;
-            margin-bottom: 10px;
-            letter-spacing: -0.02rem;
-        }
+        .browser-notice { font-size: 0.65rem; color: #bbb; margin-bottom: 10px; }
 
         .btn-group { display: flex; justify-content: center; gap: 6px; }
         .action-btn {
             flex: 1; display: inline-flex; align-items: center; justify-content: center;
             text-decoration: none; font-weight: 500; padding: 10px 0; border-radius: 50px;
-            font-size: 0.65rem; letter-spacing: -0.5px; transition: all 0.2s ease;
-            border: 1px solid #df6928; color: #df6928; background-color: transparent; cursor: pointer;
+            font-size: 0.65rem; letter-spacing: -0.5px; transition: all 0.2s;
+            border: 1px solid #df6928; color: #df6928; background-color: transparent;
             pointer-events: auto;
         }
-        .action-btn span { font-size: 0.8rem; margin-right: 3px; }
         .action-btn:active { background-color: rgba(223, 105, 40, 0.05); transform: scale(0.97); }
         .kakao-btn { background-color: #fee500; border-color: #fee500; color: #111; }
     </style>
@@ -125,32 +91,41 @@
 <div class="business-card">
     <div class="top-bar"></div>
     <div class="card-content">
-        <div class="logo-container">
-            <img src="COS_로고_영문.png" alt="COde_Studio 로고">
-        </div>
-        <div class="qr-section">
-            <img src="25kS9.png" alt="코드스튜디오 해운대센터 QR코드">
-        </div>
+        <div class="logo-container"><img src="COS_로고_영문.png" alt="CODE STUDIO"></div>
+        <div class="qr-section"><img src="25kS9.png" alt="명함 QR코드"></div>
         <div class="profile">
             <p class="name">김유진</p>
             <p class="company">지니메이커스 | 코드스튜디오 해운대센터</p>
         </div>
         <div class="divider"></div>
+
+        <!-- 📍 항목 클릭 안내 추가 -->
+        <span class="click-guide">▼ 항목을 터치하면 바로 연결됩니다</span>
+
         <div class="contact-info">
-            <a href="tel:01065581165" class="info-item"><span class="label">M</span><span class="value">010.6558.1165</span></a>
-            <a href="mailto:jinimakers@kakao.com" class="info-item"><span class="label">E</span><span class="value">jinimakers@kakao.com</span></a>
-            <div class="links">
-                <a href="https://blog.naver.com/forceysh" class="info-item" target="_blank"><span class="label">B</span><span class="value">blog.naver.com/forceysh</span></a>
-                <a href="https://www.instagram.com/codestudio_hd/" class="info-item" target="_blank"><span class="label">I</span><span class="value">instagram.com/codestudio_hd/</span></a>
-            </div>
+            <a href="tel:01065581165" class="info-item">
+                <div class="info-content"><span class="label">M</span><span class="value">010.6558.1165</span></div>
+                <span class="arrow-hint">〉</span>
+            </a>
+            <a href="mailto:jinimakers@kakao.com" class="info-item">
+                <div class="info-content"><span class="label">E</span><span class="value">jinimakers@kakao.com</span></div>
+                <span class="arrow-hint">〉</span>
+            </a>
+            <a href="https://blog.naver.com/forceysh" class="info-item" target="_blank">
+                <div class="info-content"><span class="label">B</span><span class="value">블로그 바로가기</span></div>
+                <span class="arrow-hint">〉</span>
+            </a>
+            <a href="https://www.instagram.com/codestudio_hd/" class="info-item" target="_blank">
+                <div class="info-content"><span class="label">I</span><span class="value">인스타그램 바로가기</span></div>
+                <span class="arrow-hint">〉</span>
+            </a>
         </div>
         
         <a href="https://m.map.naver.com/search2/search.naver?query=부산광역시 해운대구 마린시티 2로 2 마린파크 303호" target="_blank" class="address-box">
             <span class="label">A</span>
-            <span class="value">부산광역시 해운대구 마린시티 2로 2 마린파크 303호 (길찾기)</span>
+            <span class="value">부산 마린파크 303호 (네이버 길찾기)</span>
         </a>
 
-        <!-- 📍 안내 문구 추가 -->
         <div class="browser-notice">공유·저장은 '다른 브라우저로 열기'를 권장합니다.</div>
 
         <div class="btn-group">
@@ -162,20 +137,32 @@
 </div>
 
 <script>
+/* 보안 설정 */
 document.addEventListener('keydown', function(e) {
     if (e.keyCode == 123 || (e.ctrlKey && e.shiftKey && e.keyCode == 73) || (e.ctrlKey && e.keyCode == 67) || (e.ctrlKey && e.keyCode == 83)) {
         e.preventDefault(); return false;
     }
 });
 
+/* 공유 기능 */
 function shareCard() {
     if (navigator.share) {
-        navigator.share({ title: '김유진 대표 | 디지털 명함', text: '지니메이커스 | 코드스튜디오 김유진 대표의 명함입니다.', url: window.location.href, }).catch(console.error);
+        navigator.share({
+            title: '김유진 대표 | 디지털 명함',
+            text: '지니메이커스 | 코드스튜디오 김유진 대표의 명함입니다.',
+            url: window.location.href,
+        }).catch(console.error);
     } else {
-        const t = document.createElement("input"); document.body.appendChild(t); t.value = window.location.href; t.select(); document.execCommand("copy"); document.body.removeChild(t);
-        alert("명함 주소가 복사되었습니다.\n원하는 곳에 붙여넣기 하여 공유해 보세요!");
+        const t = document.createElement("input");
+        document.body.appendChild(t);
+        t.value = window.location.href;
+        t.select();
+        document.execCommand("copy");
+        document.body.removeChild(t);
+        alert("명함 주소가 복사되었습니다.");
     }
 }
 </script>
+
 </body>
 </html>
