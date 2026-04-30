@@ -1,42 +1,216 @@
-function downloadVCard() {
-    // 1. 카카오톡 브라우저 차단 안내
-    const userAgent = navigator.userAgent.toLowerCase();
-    if (userAgent.indexOf('kakaotalk') > -1) {
-        alert("카카오톡에서는 저장이 제한됩니다.\n하단 [지구본] 아이콘을 눌러 '다른 브라우저로 열기'를 해주세요.");
-        return;
-    }
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>디지털 명함 - 김유진</title>
 
+    <meta property="og:type" content="website">
+    <meta property="og:title" content="김유진 대표 | 디지털 명함">
+    <meta property="og:description" content="📞 010.6558.1165 | 지니메이커스 · 코드스튜디오">
+    <meta property="og:image" content="https://cordeliai.github.io/jinimakers/og_tag_cover.jpg?v=1.2">
+    <meta property="og:url" content="https://cordeliai.github.io/jinimakers/">
+
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Noto+Sans+KR:wght@300;400;700&display=swap');
+
+        body {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            min-height: 100vh;
+            margin: 0;
+            background-color: #fcfcfc;
+            font-family: 'Noto Sans KR', sans-serif;
+            color: #333;
+            -webkit-user-select: none;
+            -moz-user-select: none;
+            -ms-user-select: none;
+            user-select: none;
+            -webkit-touch-callout: none;
+        }
+
+        img {
+            -webkit-user-drag: none;
+            pointer-events: none; 
+        }
+
+        .business-card {
+            background-color: #ffffff;
+            width: 340px;
+            padding: 0 0 30px 0;
+            box-sizing: border-box;
+            border-radius: 20px;
+            box-shadow: 0 4px 20px rgba(0,0,0,0.03);
+            overflow: hidden;
+            text-align: center;
+        }
+
+        .top-bar {
+            height: 6px;
+            background-color: #df6928;
+            width: 100%;
+            margin-bottom: 25px;
+        }
+
+        .card-content { padding: 0 28px; }
+        .logo-container { margin-bottom: 20px; }
+        .logo-container img { width: 140px; height: auto; opacity: 0.85; }
+
+        .qr-section {
+            background-color: #fff;
+            padding: 8px;
+            border: 1px solid #f0f0f0;
+            border-radius: 16px;
+            display: inline-block;
+            margin-bottom: 20px;
+        }
+        .qr-section img { width: 110px; height: 110px; display: block; }
+
+        .profile { margin-bottom: 12px; }
+        .name { 
+            font-size: 1.5rem; 
+            font-weight: 700; 
+            margin: 0 0 4px 0; 
+            color: #111; 
+            letter-spacing: 0.4rem; 
+            text-indent: 0.4rem; 
+        }
+        .company { font-size: 0.85rem; font-weight: 400; color: #888; margin: 0; }
+
+        .divider { width: 25px; height: 1px; background-color: #df6928; margin: 15px auto; opacity: 0.4; }
+
+        .contact-info { text-align: left; font-size: 0.85rem; line-height: 1.6; }
+        .info-item { display: flex; align-items: center; margin-bottom: 6px; text-decoration: none; color: #555; pointer-events: auto; }
+        .info-item .label { width: 18px; font-weight: 700; color: #df6928; margin-right: 12px; font-size: 0.75rem; }
+
+        .address-box { 
+            margin-top: 10px; 
+            text-align: left; 
+            font-size: 0.75rem; 
+            color: #555; 
+            line-height: 1.4; 
+            display: flex; 
+            margin-bottom: 25px; 
+            text-decoration: none;
+            pointer-events: auto;
+        }
+        .address-box .label { width: 18px; font-weight: 700; color: #df6928; margin-right: 12px; flex-shrink: 0; }
+
+        .btn-group { display: flex; justify-content: center; gap: 6px; }
+        .action-btn {
+            flex: 1; display: inline-flex; align-items: center; justify-content: center;
+            text-decoration: none; font-weight: 500; padding: 7px 0; border-radius: 50px;
+            font-size: 0.7rem; letter-spacing: 0.5px; transition: all 0.2s ease;
+            border: 1px solid #df6928; color: #df6928; background-color: transparent; cursor: pointer;
+            pointer-events: auto;
+        }
+        .action-btn span { font-size: 0.9rem; margin-right: 4px; }
+        .action-btn:active { background-color: rgba(223, 105, 40, 0.05); transform: scale(0.97); }
+    </style>
+</head>
+
+<body oncontextmenu="return false" ondragstart="return false" onselectstart="return false">
+
+<div class="business-card">
+    <div class="top-bar"></div>
+    <div class="card-content">
+        <div class="logo-container">
+            <img src="COS_로고_영문.png" alt="COde_Studio 로고">
+        </div>
+        <div class="qr-section">
+            <img src="25kS9.png" alt="코드스튜디오 해운대센터 QR코드">
+        </div>
+        <div class="profile">
+            <p class="name">김유진</p>
+            <p class="company">지니메이커스 | 코드스튜디오 해운대센터</p>
+        </div>
+        <div class="divider"></div>
+        <div class="contact-info">
+            <a href="tel:01065581165" class="info-item"><span class="label">M</span><span class="value">010.6558.1165</span></a>
+            <a href="mailto:jinimakers@kakao.com" class="info-item"><span class="label">E</span><span class="value">jinimakers@kakao.com</span></a>
+            <div class="links">
+                <a href="https://blog.naver.com/forceysh" class="info-item" target="_blank"><span class="label">B</span><span class="value">blog.naver.com/forceysh</span></a>
+                <a href="https://www.instagram.com/codestudio_hd/" class="info-item" target="_blank"><span class="label">I</span><span class="value">instagram.com/codestudio_hd/</span></a>
+            </div>
+        </div>
+        
+        <!-- 📍 주소/네이버 길찾기 연결 -->
+        <a href="https://m.map.naver.com/search2/search.naver?query=부산광역시 해운대구 마린시티 2로 2 마린파크 303호" target="_blank" class="address-box">
+            <span class="label">A</span>
+            <span class="value">
+                부산광역시 해운대구 마린시티 2로 2<br>
+                마린파크 303호 (네이버 길찾기)
+            </span>
+        </a>
+
+        <div class="btn-group">
+            <div onclick="shareCard()" class="action-btn"><span>🔗</span> 공유</div>
+            <a href="김유진-디지털명함(세로).png" download="김유진-디지털명함(세로).png" class="action-btn"><span>📥</span> 명함</a>
+            <div onclick="downloadVCard()" class="action-btn"><span>💾</span> 저장</div>
+        </div>
+    </div>
+</div>
+
+<script>
+// 보안 설정
+document.addEventListener('keydown', function(e) {
+    if (e.keyCode == 123 || (e.ctrlKey && e.shiftKey && e.keyCode == 73) || (e.ctrlKey && e.keyCode == 67) || (e.ctrlKey && e.keyCode == 83)) {
+        e.preventDefault();
+        return false;
+    }
+});
+
+function shareCard() {
+    if (navigator.share) {
+        navigator.share({
+            title: '김유진 대표 | 디지털 명함',
+            text: '지니메이커스 | 코드스튜디오 김유진 대표의 명함입니다.',
+            url: window.location.href,
+        }).catch(console.error);
+    } else {
+        const t = document.createElement("input");
+        document.body.appendChild(t);
+        t.value = window.location.href;
+        t.select();
+        document.execCommand("copy");
+        document.body.removeChild(t);
+        alert("명함 주소가 복사되었습니다.\n원하는 곳에 붙여넣기 하세요!");
+    }
+}
+
+function downloadVCard() {
     const cardUrl = window.location.href;
     const blogUrl = "https://blog.naver.com/forceysh";
     const instaUrl = "https://www.instagram.com/codestudio_hd/";
 
-    // 🔒 호환성이 가장 높은 vCard 3.0 표준 규격
-    const v = 
-        "BEGIN:VCARD\n" +
-        "VERSION:3.0\n" +
-        "N:윤성현;원장;;;\n" +
-        "FN:윤성현 (코드스튜디오)\n" +
-        "ORG:지니메이커스;코드스튜디오\n" +
-        "TEL;TYPE=CELL:01085342437\n" +
-        "EMAIL:powerysh@hanmail.net\n" +
-        "ADR;TYPE=WORK;CHARSET=UTF-8:;;부산광역시 해운대구 마린시티 2로 2 마린파크 303호;;;;\n" +
-        "URL;TYPE=WORK:" + cardUrl + "\n" +
-        "URL;TYPE=Blog:" + blogUrl + "\n" +
-        "URL;TYPE=Instagram:" + instaUrl + "\n" +
-        "NOTE:디지털 명함: " + cardUrl + "\\n블로그: " + blogUrl + "\\n인스타그램: " + instaUrl + "\n" +
-        "END:VCARD";
+    const v = "BEGIN:VCARD\n" +
+              "VERSION:3.0\n" +
+              "FN:김유진 (코드스튜디오)\n" +
+              "ORG:지니메이커스;코드스튜디오 해운대센터\n" + 
+              "TEL;TYPE=CELL:01065581165\n" +
+              "EMAIL:jinimakers@kakao.com\n" +
+              "ADR;TYPE=WORK:;;부산광역시 해운대구 마린시티 2로 2 마린파크 303호;;;;\n" +
+              "URL;TYPE=WORK:" + cardUrl + "\n" + 
+              "URL;TYPE=Blog:" + blogUrl + "\n" + 
+              "URL;TYPE=Instagram:" + instaUrl + "\n" + 
+              "NOTE:디지털 명함: " + cardUrl + "\\n블로그: " + blogUrl + "\\n인스타그램: " + instaUrl + "\n" + 
+              "END:VCARD";
 
-    // 🔒 한글 깨짐 방지용 BOM 처리
     const b = new Blob([new Uint8Array([0xEF, 0xBB, 0xBF]), v], { type: "text/vcard;charset=utf-8;" });
     const u = window.URL.createObjectURL(b);
     const a = document.createElement("a");
-    a.download = "윤성현_연락처.vcf";
+    a.download = "김유진_연락처.vcf";
     a.href = u;
     document.body.appendChild(a);
     a.click();
     document.body.removeChild(a);
 
     setTimeout(() => {
-        alert("📥 파일이 다운로드 되었습니다.\n\n파일을 눌러도 반응이 없다면 [연락처 앱 -> 메뉴 -> 연락처 관리 -> 가져오기] 메뉴를 이용해 주세요.");
+        alert("📥 연락처 파일이 다운로드 되었습니다.\n\n[열기]를 누르시면 연락처가 저장됩니다.");
     }, 800);
 }
+</script>
+
+</body>
+</html>
