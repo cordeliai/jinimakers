@@ -1,26 +1,42 @@
 function downloadVCard() {
-    const vcard = "BEGIN:VCARD\n" +
-                  "VERSION:3.0\n" +
-                  "FN:김유진 (코드스튜디오)\n" +
-                  "TEL;TYPE=CELL:01065581165\n" +
-                  "EMAIL:jinimakers@kakao.com\n" +
-                  "ORG:지니메이커스;코드스튜디오\n" +
-                  "URL:" + window.location.href + "\n" +
-                  "END:VCARD";
+    // 1. 카카오톡 브라우저 차단 안내
+    const userAgent = navigator.userAgent.toLowerCase();
+    if (userAgent.indexOf('kakaotalk') > -1) {
+        alert("카카오톡에서는 저장이 제한됩니다.\n하단 [지구본] 아이콘을 눌러 '다른 브라우저로 열기'를 해주세요.");
+        return;
+    }
 
-    // 💡 핵심: UTF-8 BOM(0xEF, 0xBB, 0xBF)을 추가하여 안드로이드/아이폰에서 한글 인식률을 극대화합니다.
-    const blob = new Blob([new Uint8Array([0xEF, 0xBB, 0xBF]), vcard], { type: "text/vcard;charset=utf-8" });
-    const url = window.URL.createObjectURL(blob);
+    const cardUrl = window.location.href;
+    const blogUrl = "https://blog.naver.com/forceysh";
+    const instaUrl = "https://www.instagram.com/codestudio_hd/";
+
+    // 🔒 호환성이 가장 높은 vCard 3.0 표준 규격
+    const v = 
+        "BEGIN:VCARD\n" +
+        "VERSION:3.0\n" +
+        "N:윤성현;원장;;;\n" +
+        "FN:윤성현 (코드스튜디오)\n" +
+        "ORG:지니메이커스;코드스튜디오\n" +
+        "TEL;TYPE=CELL:01085342437\n" +
+        "EMAIL:powerysh@hanmail.net\n" +
+        "ADR;TYPE=WORK;CHARSET=UTF-8:;;부산광역시 해운대구 마린시티 2로 2 마린파크 303호;;;;\n" +
+        "URL;TYPE=WORK:" + cardUrl + "\n" +
+        "URL;TYPE=Blog:" + blogUrl + "\n" +
+        "URL;TYPE=Instagram:" + instaUrl + "\n" +
+        "NOTE:디지털 명함: " + cardUrl + "\\n블로그: " + blogUrl + "\\n인스타그램: " + instaUrl + "\n" +
+        "END:VCARD";
+
+    // 🔒 한글 깨짐 방지용 BOM 처리
+    const b = new Blob([new Uint8Array([0xEF, 0xBB, 0xBF]), v], { type: "text/vcard;charset=utf-8;" });
+    const u = window.URL.createObjectURL(b);
     const a = document.createElement("a");
-    a.href = url;
-    a.download = "김유진_연락처.vcf";
+    a.download = "윤성현_연락처.vcf";
+    a.href = u;
     document.body.appendChild(a);
     a.click();
-    
-    // 메모리 해제
+    document.body.removeChild(a);
+
     setTimeout(() => {
-        document.body.removeChild(a);
-        window.URL.revokeObjectURL(url);
-        alert("다운로드된 파일을 눌러 '연락처 저장'을 완료해 주세요!");
-    }, 500);
+        alert("📥 파일이 다운로드 되었습니다.\n\n파일을 눌러도 반응이 없다면 [연락처 앱 -> 메뉴 -> 연락처 관리 -> 가져오기] 메뉴를 이용해 주세요.");
+    }, 800);
 }
