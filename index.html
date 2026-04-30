@@ -91,15 +91,21 @@
             color: #555; 
             line-height: 1.4; 
             display: flex; 
-            margin-bottom: 25px; 
+            margin-bottom: 15px; 
             text-decoration: none;
             pointer-events: auto;
             cursor: pointer;
         }
         .address-box .label { width: 18px; font-weight: 700; color: #df6928; margin-right: 12px; flex-shrink: 0; }
-        .address-box:active { background-color: #f9f9f9; }
 
-        /* 버튼 그룹 레이아웃 수정 */
+        /* 📍 추가된 브라우저 안내 문구 스타일 */
+        .browser-notice {
+            font-size: 0.65rem;
+            color: #bbb;
+            margin-bottom: 10px;
+            letter-spacing: -0.02rem;
+        }
+
         .btn-group { display: flex; justify-content: center; gap: 6px; }
         .action-btn {
             flex: 1; display: inline-flex; align-items: center; justify-content: center;
@@ -110,8 +116,6 @@
         }
         .action-btn span { font-size: 0.8rem; margin-right: 3px; }
         .action-btn:active { background-color: rgba(223, 105, 40, 0.05); transform: scale(0.97); }
-
-        /* 카톡 전용 색상 강조 (선택사항) */
         .kakao-btn { background-color: #fee500; border-color: #fee500; color: #111; }
     </style>
 </head>
@@ -143,13 +147,12 @@
         
         <a href="https://m.map.naver.com/search2/search.naver?query=부산광역시 해운대구 마린시티 2로 2 마린파크 303호" target="_blank" class="address-box">
             <span class="label">A</span>
-            <span class="value">
-                부산광역시 해운대구 마린시티 2로 2<br>
-                마린파크 303호 (네이버 길찾기)
-            </span>
+            <span class="value">부산광역시 해운대구 마린시티 2로 2 마린파크 303호 (길찾기)</span>
         </a>
 
-        <!-- 버튼 그룹: 3개로 구성 -->
+        <!-- 📍 안내 문구 추가 -->
+        <div class="browser-notice">공유·저장은 '다른 브라우저로 열기'를 권장합니다.</div>
+
         <div class="btn-group">
             <div onclick="shareCard()" class="action-btn"><span>🔗</span> 공유</div>
             <a href="https://open.kakao.com/o/sdQg6Jsi" target="_blank" class="action-btn kakao-btn"><span>💬</span> 카톡상담</a>
@@ -161,29 +164,18 @@
 <script>
 document.addEventListener('keydown', function(e) {
     if (e.keyCode == 123 || (e.ctrlKey && e.shiftKey && e.keyCode == 73) || (e.ctrlKey && e.keyCode == 67) || (e.ctrlKey && e.keyCode == 83)) {
-        e.preventDefault();
-        return false;
+        e.preventDefault(); return false;
     }
 });
 
 function shareCard() {
     if (navigator.share) {
-        navigator.share({
-            title: '김유진 대표 | 디지털 명함',
-            text: '지니메이커스 | 코드스튜디오 김유진 대표의 명함입니다.',
-            url: window.location.href,
-        }).catch(console.error);
+        navigator.share({ title: '김유진 대표 | 디지털 명함', text: '지니메이커스 | 코드스튜디오 김유진 대표의 명함입니다.', url: window.location.href, }).catch(console.error);
     } else {
-        const t = document.createElement("input");
-        document.body.appendChild(t);
-        t.value = window.location.href;
-        t.select();
-        document.execCommand("copy");
-        document.body.removeChild(t);
+        const t = document.createElement("input"); document.body.appendChild(t); t.value = window.location.href; t.select(); document.execCommand("copy"); document.body.removeChild(t);
         alert("명함 주소가 복사되었습니다.\n원하는 곳에 붙여넣기 하여 공유해 보세요!");
     }
 }
 </script>
-
 </body>
 </html>
