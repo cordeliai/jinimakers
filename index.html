@@ -135,7 +135,6 @@
             </div>
         </div>
         
-        <!-- 📍 주소/네이버 길찾기 연결 -->
         <a href="https://m.map.naver.com/search2/search.naver?query=부산광역시 해운대구 마린시티 2로 2 마린파크 303호" target="_blank" class="address-box">
             <span class="label">A</span>
             <span class="value">
@@ -175,7 +174,7 @@ function shareCard() {
         t.select();
         document.execCommand("copy");
         document.body.removeChild(t);
-        alert("명함 주소가 복사되었습니다.\n원하는 곳에 붙여넣기 하세요!");
+        alert("명함 주소가 복사되었습니다.");
     }
 }
 
@@ -184,30 +183,32 @@ function downloadVCard() {
     const blogUrl = "https://blog.naver.com/forceysh";
     const instaUrl = "https://www.instagram.com/codestudio_hd/";
 
-    const v = "BEGIN:VCARD\n" +
-              "VERSION:3.0\n" +
-              "FN:김유진 (코드스튜디오)\n" +
-              "ORG:지니메이커스;코드스튜디오 해운대센터\n" + 
-              "TEL;TYPE=CELL:01065581165\n" +
-              "EMAIL:jinimakers@kakao.com\n" +
-              "ADR;TYPE=WORK:;;부산광역시 해운대구 마린시티 2로 2 마린파크 303호;;;;\n" +
-              "URL;TYPE=WORK:" + cardUrl + "\n" + 
-              "URL;TYPE=Blog:" + blogUrl + "\n" + 
-              "URL;TYPE=Instagram:" + instaUrl + "\n" + 
-              "NOTE:디지털 명함: " + cardUrl + "\\n블로그: " + blogUrl + "\\n인스타그램: " + instaUrl + "\n" + 
+    // 🔒 호환성 극대화를 위한 vCard 2.1 포맷 및 \r\n 줄바꿈 사용
+    const v = "BEGIN:VCARD\r\n" +
+              "VERSION:2.1\r\n" +
+              "N:김;유진;;;\r\n" +
+              "FN:김유진 (코드스튜디오)\r\n" +
+              "ORG:지니메이커스;코드스튜디오 해운대센터\r\n" + 
+              "TEL;CELL:010-6558-1165\r\n" +
+              "EMAIL:jinimakers@kakao.com\r\n" +
+              "ADR;WORK;CHARSET=UTF-8:;;부산광역시 해운대구 마린시티 2로 2 마린파크 303호;;;;\r\n" +
+              "URL;WORK:" + cardUrl + "\r\n" + 
+              "URL;BLOG:" + blogUrl + "\r\n" + 
+              "URL;INSTA:" + instaUrl + "\r\n" + 
+              "NOTE:디지털 명함: " + cardUrl + "\r\n" + 
               "END:VCARD";
 
-    const b = new Blob([new Uint8Array([0xEF, 0xBB, 0xBF]), v], { type: "text/vcard;charset=utf-8;" });
+    const b = new Blob([new Uint8Array([0xEF, 0xBB, 0xBF]), v], { type: "text/x-vcard;charset=utf-8;" });
     const u = window.URL.createObjectURL(b);
     const a = document.createElement("a");
-    a.download = "김유진_연락처.vcf";
+    a.download = "contact.vcf";
     a.href = u;
     document.body.appendChild(a);
     a.click();
     document.body.removeChild(a);
 
     setTimeout(() => {
-        alert("📥 연락처 파일이 다운로드 되었습니다.\n\n[열기]를 누르시면 연락처가 저장됩니다.");
+        alert("📥 연락처 파일이 다운로드 되었습니다.\n\n[열기]를 눌러도 반응이 없다면 연락처 앱의 '가져오기' 메뉴를 이용해주세요.");
     }, 800);
 }
 </script>
