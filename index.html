@@ -130,6 +130,12 @@
         <div class="divider"></div>
         <div class="contact-info">
             <a href="tel:01065581165" class="info-item"><span class="label">M</span><span class="value">010.6558.1165</span></a>
+            
+            <!-- 📍 오픈채팅 링크가 적용된 상담 버튼 -->
+            <a href="https://open.kakao.com/o/sdQg6Jsi" class="info-item" target="_blank">
+                <span class="label">K</span><span class="value" style="color:#df6928; font-weight:700;">실시간 상담 및 오픈채팅</span>
+            </a>
+
             <a href="mailto:jinimakers@kakao.com" class="info-item"><span class="label">E</span><span class="value">jinimakers@kakao.com</span></a>
             <div class="links">
                 <a href="https://blog.naver.com/forceysh" class="info-item" target="_blank"><span class="label">B</span><span class="value">blog.naver.com/forceysh</span></a>
@@ -153,6 +159,7 @@
 </div>
 
 <script>
+/* 보안: 우클릭/단축키 차단 */
 document.addEventListener('keydown', function(e) {
     if (e.keyCode == 123 || (e.ctrlKey && e.shiftKey && e.keyCode == 73) || (e.ctrlKey && e.keyCode == 67) || (e.ctrlKey && e.keyCode == 83)) {
         e.preventDefault();
@@ -160,6 +167,7 @@ document.addEventListener('keydown', function(e) {
     }
 });
 
+/* 공유 기능 */
 function shareCard() {
     if (navigator.share) {
         navigator.share({
